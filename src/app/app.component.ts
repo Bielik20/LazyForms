@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {getMetadata, MetadataTest, SampleClass} from './DecoratorsTest/metadata-test';
+import {getLazyMetadata, MetadataTest, SampleClass} from './DecoratorsTest/metadata-test';
 
 @Component({
   selector: 'app-root',
@@ -12,9 +12,7 @@ export class AppComponent {
   click() {
     const myMetadataTest = new MetadataTest();
     const a = myMetadataTest.getMetadata('testProperty');
-    const b = getMetadata<SampleClass>('testProperty', myMetadataTest);
+    const b = getLazyMetadata<SampleClass>('testProperty', myMetadataTest);
     console.log(a);
-    // myMetadataTest.testProperty = 'aaa';
-    // myMetadataTest.testProperty;
   }
 }
