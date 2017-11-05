@@ -14,6 +14,7 @@ export class AppComponent {
     const a = myMetadataTest.getMetadata('testProperty');
     const b = getMetadata<SampleClass>('testProperty', myMetadataTest);
     console.log(a);
-
+    // myMetadataTest.testProperty = 'aaa';
+    // myMetadataTest.testProperty;
   }
 }
