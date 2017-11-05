@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Greeter} from './DecoratorsTest/TestClass';
+import {C} from './DecoratorsTest/TestClass2';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+
+  click() {
+    // let obj = new C();
+    // let metadataValue = Reflect.getMetadata('metadataKey', obj, "method");
+    // console.log(metadataValue)
+
+    const test = new Greeter('test message');
+    test.greet();
+    // const a = Reflect.getMetadata('format', test, 'greeting');
+    // console.log(a)
+  }
 }
