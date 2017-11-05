@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Greeter} from './DecoratorsTest/TestClass';
 import {C} from './DecoratorsTest/TestClass2';
+import {getMetadata, MetadataTest, SampleClass} from './DecoratorsTest/TestClass3';
 
 @Component({
   selector: 'app-root',
@@ -19,5 +20,15 @@ export class AppComponent {
     test.greet();
     // const a = Reflect.getMetadata('format', test, 'greeting');
     // console.log(a)
+
+    // const myMetadataTest = new MetadataTest();
+    // console.log(myMetadataTest.getMetadata('testProperty'));
+
+
+    const myMetadataTest = new MetadataTest();
+    const a = myMetadataTest.getMetadata('testProperty');
+    const b = getMetadata<SampleClass>('testProperty', myMetadataTest);
+    console.log(a);
+
   }
 }
