@@ -12,11 +12,6 @@ export class SampleClass {
 export class MetadataTest extends MetadataAccessor<string> {
   @metadata<string>('my first reflection test')
   testProperty: string;
-  //
-  // constructor() {
-  //   super();
-  //   this.testProperty = '';
-  // }
 }
 
 function metadata<T>(value: T) {
