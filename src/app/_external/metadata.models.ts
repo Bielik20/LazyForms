@@ -1,7 +1,7 @@
 import {AbstractControl, Validators} from '@angular/forms';
-import {LazyMetadata} from '../_frameworks/lazy-forms';
+import {getLazyMetadata, LazyMetadata, lazyMetadata} from '../_frameworks/lazy-forms';
 
-class DisplayMetadata extends LazyMetadata {
+abstract class DisplayMetadata extends LazyMetadata {
   label?: string;
   icon?: string;
 
@@ -12,7 +12,7 @@ class DisplayMetadata extends LazyMetadata {
   }
 }
 
-class ValidatorsMetadata extends DisplayMetadata {
+abstract class ValidatorsMetadata extends DisplayMetadata {
   min?: number;
   max?: number;
   required?: boolean;
@@ -47,4 +47,14 @@ class ValidatorsMetadata extends DisplayMetadata {
   }
 }
 
-export class BaseMetadata extends ValidatorsMetadata { }
+export abstract class BaseMetadata extends ValidatorsMetadata {}
+
+export class MetadataAccessor {
+  metadata(propertyKey: string): BaseMetadata {
+    return getLazyMetadata(propertyKey, this);
+  }
+}
+
+export function metadata(value: BaseMetadata) {
+  return lazyMetadata(value);
+}
