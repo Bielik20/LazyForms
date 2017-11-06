@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {getLazyMetadata, MetadataTest, SampleClass} from './DecoratorsTest/metadata-test';
 
 @Component({
@@ -7,7 +7,6 @@ import {getLazyMetadata, MetadataTest, SampleClass} from './DecoratorsTest/metad
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app';
 
   click() {
     const myMetadataTest = new MetadataTest();

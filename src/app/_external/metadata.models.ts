@@ -1,9 +1,15 @@
 import {AbstractControl, Validators} from '@angular/forms';
-import {LazyMetadata} from '../Frameworks/lazy-forms';
+import {LazyMetadata} from '../_frameworks/lazy-forms';
 
 class DisplayMetadata extends LazyMetadata {
   label?: string;
   icon?: string;
+
+  constructor(options: {} = {}) {
+    super(options);
+    this.label = options['label'] || null;
+    this.icon = options['icon'] || null;
+  }
 }
 
 class ValidatorsMetadata extends DisplayMetadata {
@@ -14,7 +20,7 @@ class ValidatorsMetadata extends DisplayMetadata {
   minLength?: number;
 
   constructor(options: {} = {}) {
-    super();
+    super(options);
     this.min = options['min'] || null;
     this.max = options['max'] || null;
     this.required = options['required'] || false;

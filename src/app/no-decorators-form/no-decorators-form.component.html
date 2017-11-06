@@ -1,0 +1,8 @@
+<h3>No Decorators Form</h3>
+<form lazyForm [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+  <lazy-selector [value]="value" [metadata]="metadata"></lazy-selector>
+
+  <button type="submit" class="btn btn-success" [disabled]="form.invalid">Submit</button>
+  <p>form value: {{form.value | json}}</p>
+  <P>form valid: {{form.valid}}</P>
+</form>

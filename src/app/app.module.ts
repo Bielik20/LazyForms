@@ -1,17 +1,27 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 import 'reflect-metadata';
 
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
+import {ExternalModule} from './_external/external.module';
+import {LazyFormModule} from './_frameworks/lazy-forms';
+import { NoDecoratorsFormComponent } from './no-decorators-form/no-decorators-form.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NoDecoratorsFormComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    CommonModule,
+    ReactiveFormsModule,
+    ExternalModule,
+    LazyFormModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
