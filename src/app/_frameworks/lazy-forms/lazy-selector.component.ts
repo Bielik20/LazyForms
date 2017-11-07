@@ -1,4 +1,4 @@
-import {Component, ComponentFactoryResolver, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ComponentFactoryResolver, Input, OnChanges, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import 'rxjs/add/operator/takeUntil';
 import {Subject} from 'rxjs/Subject';
 import {LazySelectorService} from './lazy-selector.service';
@@ -12,11 +12,12 @@ import {LazyInputComponent} from './lazy-input.component';
     <ng-template lazyHost></ng-template>
   `,
 })
-export class LazySelectorComponent implements OnInit, OnDestroy {
+export class LazySelectorComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() value: any;
   @Input() metadata: LazyMetadata;
   @ViewChild(LazyHostDirective) lazyHost: LazyHostDirective;
+  private componentInstance: LazyInputComponent;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
@@ -25,6 +26,12 @@ export class LazySelectorComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loadComponent();
     this.lazySelectorService.onReset.takeUntil(this.ngUnsubscribe).subscribe(() => this.loadComponent());
+  }
+
+  /** Ensures passage of value from a parent component to a child. */
+  ngOnChanges() {
+    // Only value needs to be updated because it can be primitive
+    if (this.componentInstance) { this.componentInstance.value = this.value; }
   }
 
   ngOnDestroy() {
@@ -39,8 +46,9 @@ export class LazySelectorComponent implements OnInit, OnDestroy {
     viewContainerRef.clear();
 
     const componentRef = viewContainerRef.createComponent(componentFactory);
-    (<LazyInputComponent>componentRef.instance).value = this.value;
-    (<LazyInputComponent>componentRef.instance).metadata = this.metadata;
+    this.componentInstance = <LazyInputComponent>componentRef.instance;
+    this.componentInstance.value = this.value;
+    this.componentInstance.metadata = this.metadata;
   }
 
 }

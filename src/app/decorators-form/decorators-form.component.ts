@@ -19,4 +19,10 @@ export class DecoratorsFormComponent {
     console.log(this.model);
   }
 
+  testFormReset() {
+    this.model.lastName = this.form.value.firstName;
+    // setTimeout(() => this.form = new FormGroup({}));
+    this.form = new FormGroup({});
+  }
+
 }
