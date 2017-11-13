@@ -9,6 +9,7 @@ import {LazyFormModule} from './_frameworks/lazy-forms';
 import {AppComponent} from './app.component';
 import {DecoratorsFormComponent} from './decorators-form/decorators-form.component';
 import {NoDecoratorsFormComponent} from './no-decorators-form/no-decorators-form.component';
+import {ValidationMessagesService} from './_frameworks/validation-messages/validation-messages.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import {NoDecoratorsFormComponent} from './no-decorators-form/no-decorators-form
     ExternalModule,
     LazyFormModule,
   ],
-  providers: [],
+  providers: [ValidationMessagesService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
