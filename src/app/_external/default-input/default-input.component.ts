@@ -32,12 +32,7 @@ export class DefaultInputComponent implements OnInit, LazyInputComponent {
   }
 
   private createForm() {
-    this.formControl = new FormControl(this.value);
+    this.formControl = new FormControl(this.value, this.metadata.validators);
     this.dynamicChild.addControlAndReportReady(this.metadata.key, this.formControl);
-    this.setValidators();
-  }
-
-  private setValidators() {
-    this.metadata.resolveValidators(this.formControl);
   }
 }

@@ -1,4 +1,4 @@
-import {AbstractControl, Validators} from '@angular/forms';
+import {ValidatorFn, Validators} from '@angular/forms';
 import {getLazyMetadata, LazyMetadata, lazyMetadata} from '../_frameworks/lazy-forms';
 
 abstract class DisplayMetadata extends LazyMetadata {
@@ -28,22 +28,14 @@ abstract class ValidatorsMetadata extends DisplayMetadata {
     this.minLength = options['minLength'] || null;
   }
 
-  resolveValidators(formControl: AbstractControl) {
-    if (this.min) {
-      formControl.setValidators(Validators.min((this.min)));
-    }
-    if (this.max) {
-      formControl.setValidators(Validators.max((this.max)));
-    }
-    if (this.required) {
-      formControl.setValidators(Validators.required);
-    }
-    if (this.email) {
-      formControl.setValidators(Validators.email);
-    }
-    if (this.minLength) {
-      formControl.setValidators(Validators.minLength((this.minLength)));
-    }
+  get validators(): ValidatorFn[] {
+    const array = [];
+    if (this.min) { array.push(Validators.min((this.min))); }
+    if (this.max) { array.push(Validators.max((this.max))); }
+    if (this.required) { array.push(Validators.required); }
+    if (this.email) { array.push(Validators.email); }
+    if (this.minLength) { array.push(Validators.minLength((this.minLength))); }
+    return array;
   }
 }
 
