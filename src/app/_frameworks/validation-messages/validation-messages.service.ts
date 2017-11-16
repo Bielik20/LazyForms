@@ -1,13 +1,23 @@
 import {Injectable} from '@angular/core';
 import {AbstractControl} from '@angular/forms';
+import {ValidationMessagesRepository} from './validation-messages-repository';
 
-class KeyMessagePair {
+interface KeyMessagePair {
   key: string;
   message: string;
 }
 
 @Injectable()
 export class ValidationMessagesService {
+  private repository: ValidationMessagesRepository;
+
+  constructor(repository: ValidationMessagesRepository = new ValidationMessagesRepository()) {
+    this.repository = repository;
+  }
+
+  static provide(repository?: ValidationMessagesRepository) {
+    return { provide: ValidationMessagesService, useFactory: () => new ValidationMessagesService(repository) };
+  }
 
   getFirst(control: AbstractControl): string {
     const generator = this.getMessage(control);
@@ -33,46 +43,18 @@ export class ValidationMessagesService {
     return dictionary;
   }
 
-  private *getMessage(control: AbstractControl): IterableIterator<KeyMessagePair> {
+  private * getMessage(control: AbstractControl): IterableIterator<KeyMessagePair> {
     for (const errorKey in control.errors) {
-      if (this.propertyAndMethodExist(control, errorKey)) {
-        const messageMethod = this[errorKey];
+      if (control.errors.hasOwnProperty(errorKey)) {
+        const messageMethod = this.repository[errorKey];
         const validationObject = control.errors[errorKey];
-        const validationMessage = messageMethod(validationObject);
-        yield {key: errorKey, message: validationMessage};
+        if (messageMethod) {
+          const validationMessage = messageMethod(validationObject);
+          yield {key: errorKey, message: validationMessage};
+        } else {
+          console.warn(`No message method for error: ${errorKey}`, validationObject);
+        }
       }
     }
-    return;
   }
-
-  private propertyAndMethodExist(control: AbstractControl, key: string): boolean {
-    const propertyExists = control.errors.hasOwnProperty(key);
-    const methodExists = typeof(this[key]) === 'function';
-    return propertyExists && methodExists;
-  }
-
-  // VALIDATION MESSAGE METHODS
-  protected min(validationObject: any): string {
-    const min = validationObject.min;
-    return `Value cannot be lower than ${min}.`;
-  }
-
-  protected max(validationObject: any): string {
-    const max = validationObject.max;
-    return `Value cannot be higher than ${max}.`;
-  }
-
-  protected required(validationObject: any): string {
-    return `This field cannot be empty.`;
-  }
-
-  protected email(validationObject: any): string {
-    return `Mail needs to be in appropriate format`;
-  }
-
-  protected minlength(validationObject: any): string {
-    const requiredLength = validationObject.requiredLength;
-    return `This field needs to contain at least ${requiredLength}`;
-  }
-
 }

@@ -8,7 +8,7 @@ describe('ValidationMessagesService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ValidationMessagesService]
+      providers: [ValidationMessagesService.provide()],
     });
   });
 
@@ -27,6 +27,12 @@ describe('ValidationMessagesService', () => {
 
   it('should get array', inject([ValidationMessagesService], (service: ValidationMessagesService) => {
     const messages = service.getArray(control);
+    expect(messages.length).toEqual(2);
+  }));
+  it('should get array twice', inject([ValidationMessagesService], (service: ValidationMessagesService) => {
+    let messages = service.getArray(control);
+    expect(messages.length).toEqual(2);
+    messages = service.getArray(control);
     expect(messages.length).toEqual(2);
   }));
   it('should get array - empty', inject([ValidationMessagesService], (service: ValidationMessagesService) => {

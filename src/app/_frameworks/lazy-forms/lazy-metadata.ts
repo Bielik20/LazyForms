@@ -8,7 +8,7 @@ export abstract class LazyMetadata {
   }
 }
 
-export function lazyMetadata(value: LazyMetadata) {
+export function setLazyMetadata(value: LazyMetadata) {
   return function (target: Object, key: string) {
     value.key = key;
     Reflect.defineMetadata('lazy-forms-metadata', value, target, key);

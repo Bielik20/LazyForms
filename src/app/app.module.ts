@@ -24,7 +24,7 @@ import {ValidationMessagesService} from './_frameworks/validation-messages/valid
     ExternalModule,
     LazyFormModule,
   ],
-  providers: [ValidationMessagesService],
+  providers: [ValidationMessagesService.provide()],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
