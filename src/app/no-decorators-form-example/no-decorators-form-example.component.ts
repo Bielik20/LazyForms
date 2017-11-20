@@ -3,11 +3,11 @@ import {FormGroup} from '@angular/forms';
 import {DefaultInputMetadata} from '../_external/default-input/default-input.component';
 
 @Component({
-  selector: 'app-no-decorators-form',
-  templateUrl: './no-decorators-form.component.html',
-  styleUrls: ['./no-decorators-form.component.scss']
+  selector: 'app-no-decorators-form-example',
+  templateUrl: './no-decorators-form-example.component.html',
+  styleUrls: ['./no-decorators-form-example.component.scss']
 })
-export class NoDecoratorsFormComponent {
+export class NoDecoratorsFormExampleComponent {
 
   form = new FormGroup({});
   value = 'Populated value';

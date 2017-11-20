@@ -1,0 +1,25 @@
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+
+const routes: Routes = [
+  {
+    path: 'no-decorators-form-example',
+    loadChildren: 'app/no-decorators-form-example/no-decorators-form-example.module#NoDecoratorsFormExampleModule'
+  },
+  {
+    path: 'decorators-form-example',
+    loadChildren: 'app/decorators-form-example/decorators-form-example.module#DecoratorsFormExampleModule'
+  },
+  {
+    path: 'nested-form-example',
+    loadChildren: 'app/nested-form-example/nested-form-example.module#NestedFormExampleModule'
+  },
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+
+export class AppRoutingModule {
+}

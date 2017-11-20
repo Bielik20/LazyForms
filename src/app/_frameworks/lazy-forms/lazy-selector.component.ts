@@ -1,4 +1,7 @@
-import {Component, ComponentFactoryResolver, Input, OnChanges, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {
+  Component, ComponentFactory, ComponentFactoryResolver, Input, OnChanges, OnDestroy, OnInit,
+  ViewChild
+} from '@angular/core';
 import 'rxjs/add/operator/takeUntil';
 import {Subject} from 'rxjs/Subject';
 import {LazySelectorService} from './lazy-selector.service';
@@ -40,15 +43,22 @@ export class LazySelectorComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private loadComponent() {
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.metadata.component);
-
+    const componentFactory = this.getComponentFactory();
     const viewContainerRef = this.lazyHost.viewContainerRef;
     viewContainerRef.clear();
 
     const componentRef = viewContainerRef.createComponent(componentFactory);
-    this.componentInstance = <LazyInputComponent>componentRef.instance;
+    this.componentInstance = componentRef.instance;
     this.componentInstance.value = this.value;
     this.componentInstance.metadata = this.metadata;
+  }
+
+  private getComponentFactory(): ComponentFactory<LazyInputComponent> {
+    if (this.value instanceof Array) {
+      console.log('Value is Array');
+      // TODO: Here it should return factory for an array
+    }
+    return this.componentFactoryResolver.resolveComponentFactory(this.metadata.component);
   }
 
 }

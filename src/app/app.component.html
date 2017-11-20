@@ -1,6 +1,10 @@
 <h1>
   Welcome to Lazy Forms Demo Application!
 </h1>
+<nav>
+  <a routerLink="/no-decorators-form-example" routerLinkActive="active">No Decorators Form Example</a>
+  <a routerLink="/decorators-form-example" routerLinkActive="active">Decorators Form Example</a>
+  <a routerLink="/nested-form-example" routerLinkActive="active">Nested Form Example</a>
+</nav>
 
-<app-no-decorators-form></app-no-decorators-form>
-<app-decorators-form></app-decorators-form>
+<router-outlet></router-outlet>

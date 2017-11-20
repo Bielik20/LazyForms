@@ -13,9 +13,16 @@ export class UserModel extends MetadataAccessor {
   }))
   lastName: string;
 
+  @metadata(new DefaultInputMetadata({
+    label: 'Age',
+    type: 'number'
+  }))
+  age: number;
+
   constructor(options: {} = {}) {
     super();
     this.firstName = options['firstName'] || null;
     this.lastName = options['lastName'] || null;
+    this.age = options['age'] || null;
   }
 }

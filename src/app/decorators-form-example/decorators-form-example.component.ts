@@ -3,11 +3,11 @@ import {FormGroup} from '@angular/forms';
 import {UserModel} from './model';
 
 @Component({
-  selector: 'app-decorators-form',
-  templateUrl: './decorators-form.component.html',
-  styleUrls: ['./decorators-form.component.scss']
+  selector: 'app-decorators-form-example',
+  templateUrl: './decorators-form-example.component.html',
+  styleUrls: ['./decorators-form-example.component.scss']
 })
-export class DecoratorsFormComponent {
+export class DecoratorsFormExampleComponent {
 
   form = new FormGroup({});
   model = new UserModel({lastName: 'This value is predefined'});
