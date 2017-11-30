@@ -1,59 +1,77 @@
-import {EventEmitter, Injectable, Output} from '@angular/core';
-import {AbstractControl, FormGroup} from '@angular/forms';
-import {LazySelectorService} from './lazy-selector.service';
+import {Injectable, Output} from '@angular/core';
+import {AbstractControl, FormArray, FormGroup} from '@angular/forms';
 import {Subject} from 'rxjs/Subject';
-import {LazyInputService} from './lazy-input.service';
+import {LazySelectorService} from './lazy-selector.service';
 
 @Injectable()
-export class LazyFormService implements LazyInputService, LazySelectorService {
+export class LazyFormService implements LazySelectorService {
 
   @Output() onReset = new Subject();
+  private controlOperations: ControlOperations;
 
-  private fieldsArray: any[];
-  private fieldsCount: number;
-  private onFormComplete: EventEmitter<any>;
-  private formGroup: FormGroup;
-  private isFormComplete = false;
-
-  addControlAndReportReady(name: string, control: AbstractControl) {
-    this.fieldsArray.push({name: name, control: control});
-    this.completeFormIfFieldsAreReady();
+  addControl(name: string, control: AbstractControl) {
+    this.controlOperations.addControl(name, control);
   }
 
-  configure(onFormComplete: EventEmitter<any>, fieldsCount: number) {
-    this.fieldsCount = fieldsCount;
-    this.onFormComplete = onFormComplete;
+  removeControl(name: string, control: AbstractControl) {
+    this.controlOperations.removeControl(name, control);
   }
 
-  /** It will fire 'onFormComplete' when finished. */
-  initialize(formGroup: FormGroup) {
-    this.formGroup = formGroup;
-    this.fieldsArray = [];
-  }
-
-  /** It will destroy current children and fire 'onFormComplete' when finished. */
-  reinitialize(formGroup: FormGroup) {
-    if (this.isFormComplete === false) { return; }
-    this.isFormComplete = false;
-
-    this.initialize(formGroup);
+  /** It will initialize or reinitialize form */
+  initialize(form: AbstractControl) {
+    this.controlOperations = ControlOperations.create(form);
     this.resetChildren();
   }
 
-  private completeFormIfFieldsAreReady() {
-    if (this.fieldsCount === this.fieldsArray.length) { setTimeout(() => { this.completeForm(); }); }
-  }
-
-  private completeForm() {
-    this.fieldsArray.forEach(el => {
-      this.formGroup.addControl(el.name, el.control);
-    });
-    this.onFormComplete.emit(null);
-    this.isFormComplete = true;
-  }
-
+  // Only work during reinitialization because before that no one subscribe to OnReset()
   private resetChildren() {
     this.onReset.next();
   }
+}
 
+abstract class ControlOperations {
+  form: AbstractControl;
+
+  protected constructor(form: AbstractControl) {
+    this.form = form;
+  }
+
+  static create(form: AbstractControl): ControlOperations {
+    if (form instanceof FormGroup) {
+      return new FormGroupOperations(form);
+    }
+    if (form instanceof FormArray) {
+      return new FormArrayOperations(form);
+    }
+    throw new Error('Invalid argument. Must be FormGroup or FormArray.');
+  }
+
+  abstract addControl(name: string, control: AbstractControl);
+
+  abstract removeControl(name: string, control: AbstractControl);
+}
+
+class FormArrayOperations extends ControlOperations {
+  form: FormArray;
+
+  addControl(name: string, control: AbstractControl) {
+    setTimeout(() => this.form.push(control));
+  }
+
+  removeControl(name: string, control: AbstractControl) {
+    const index = this.form.controls.indexOf(control);
+    setTimeout(() => this.form.removeAt(index));
+  }
+}
+
+class FormGroupOperations extends ControlOperations {
+  form: FormGroup;
+
+  addControl(name: string, control: AbstractControl) {
+    setTimeout(() => this.form.addControl(name, control));
+  }
+
+  removeControl(name: string, control: AbstractControl) {
+    setTimeout(() => this.form.removeControl(name));
+  }
 }

@@ -14,6 +14,10 @@ const routes: Routes = [
     path: 'nested-form-example',
     loadChildren: 'app/nested-form-example/nested-form-example.module#NestedFormExampleModule'
   },
+  {
+    path: 'form-array-example',
+    loadChildren: 'app/form-array-example/form-array-example.module#FormArrayExampleModule'
+  },
 ];
 
 @NgModule({

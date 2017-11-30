@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {BaseMetadata} from '../metadata.models';
-import {LazyInputComponent, LazyInputService} from '../../_frameworks/lazy-forms';
 import {FormControl} from '@angular/forms';
+import {Subject} from 'rxjs/Subject';
+import {LazyInputComponent} from '../../_frameworks/lazy-forms';
+import {BaseMetadata} from '../metadata.models';
 
 export class DefaultInputMetadata extends BaseMetadata {
   type: string;
@@ -20,19 +21,15 @@ export class DefaultInputMetadata extends BaseMetadata {
   styleUrls: ['./default-input.component.scss']
 })
 export class DefaultInputComponent implements OnInit, LazyInputComponent {
-
   @Input() value: string | number | Date;
   @Input() metadata: DefaultInputMetadata;
-  formControl: FormControl;
-
-  constructor(private dynamicChild: LazyInputService) { }
+  control: FormControl;
 
   ngOnInit() {
     this.createForm();
   }
 
   private createForm() {
-    this.formControl = new FormControl(this.value, this.metadata.validators);
-    this.dynamicChild.addControlAndReportReady(this.metadata.key, this.formControl);
+    this.control = new FormControl(this.value, this.metadata.validators);
   }
 }

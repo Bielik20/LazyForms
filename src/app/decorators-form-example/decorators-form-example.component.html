@@ -1,11 +1,20 @@
 <h3>Decorators Form</h3>
-<form lazyForm [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
-  <lazy-selector [value]="model.firstName" [metadata]="model.metadata('firstName')"></lazy-selector>
-  <lazy-selector [value]="model.lastName" [metadata]="model.metadata('lastName')"></lazy-selector>
+<div class="row">
 
-  <button type="submit" class="btn btn-success" [disabled]="form.invalid">Submit</button>
-  <p>form value: {{form.value | json}}</p>
-  <P>form valid: {{form.valid}}</P>
-</form>
+  <div class="col-md-8">
+    <form lazyForm [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <lazy-selector [value]="model.firstName" [metadata]="model.metadata('firstName')"></lazy-selector>
+      <lazy-selector [value]="model.lastName" [metadata]="model.metadata('lastName')"></lazy-selector>
+      <button type="submit" class="btn btn-success" [disabled]="form.invalid">Submit</button>
+      <button type="button" class="btn btn-danger" (click)="testFormReset()">Test Reset</button>
+    </form>
+  </div>
 
-<button type="button" (click)="testFormReset()">Test Reset</button>
+  <div class="col-md-4">
+<pre [ngClass]="{'invalid': form.invalid, 'valid': form.valid}">
+<b>model value:</b> {{model | json}}
+<b>form value:</b> {{form.value | json}}
+</pre>
+  </div>
+
+</div>

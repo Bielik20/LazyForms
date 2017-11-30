@@ -1,11 +1,19 @@
 <h3>Nested Form Example</h3>
-<form lazyForm [formGroup]="form" (onFormComplete)="onFormComplete()" (ngSubmit)="onSubmit()" novalidate>
-  <lazy-selector [value]="model.title" [metadata]="model.metadata('title')"></lazy-selector>
+<div class="row">
 
-  <p>form value: {{form.value | json}}</p>
-  <P>form valid: {{form.valid}}</P>
+  <div class="col-md-8">
+    <form lazyForm [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <lazy-selector [value]="model.title" [metadata]="model.metadata('title')"></lazy-selector>
+      <lazy-selector [value]="model.userModel" [metadata]="model.metadata('userModel')"></lazy-selector>
+      <button type="button" class="btn btn-danger" (click)="testFormReset()">Test Reset</button>
+    </form>
+  </div>
 
-  <lazy-selector [value]="model.userModel" [metadata]="model.metadata('userModel')"></lazy-selector>
-</form>
+  <div class="col-md-4">
+<pre [ngClass]="{'invalid': form.invalid, 'valid': form.valid}">
+<b>model value:</b> {{model | json}}
+<b>form value:</b> {{form.value | json}}
+</pre>
+  </div>
 
-<button type="button" (click)="testFormReset()">Test Reset</button>
+</div>
