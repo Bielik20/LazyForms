@@ -1,5 +1,5 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
-import {AbstractControl, FormGroup} from '@angular/forms';
+import {AbstractControl, FormArray, FormGroup} from '@angular/forms';
 import {LazySelectorService} from './lazy-selector.service';
 import {Subject} from 'rxjs/Subject';
 import {LazyInputService} from './lazy-input.service';
@@ -8,52 +8,64 @@ import {LazyInputService} from './lazy-input.service';
 export class LazyFormService implements LazyInputService, LazySelectorService {
 
   @Output() onReset = new Subject();
+  private addControlState: AddControlState;
 
-  private fieldsArray: any[];
-  private fieldsCount: number;
-  private onFormComplete: EventEmitter<any>;
-  private formGroup: FormGroup;
-  private isFormComplete = false;
-
-  addControlAndReportReady(name: string, control: AbstractControl) {
-    this.fieldsArray.push({name: name, control: control});
-    this.completeFormIfFieldsAreReady();
+  addControl(name: string, control: AbstractControl) {
+    this.addControlState.addControl(name, control);
   }
 
-  configure(onFormComplete: EventEmitter<any>, fieldsCount: number) {
-    this.fieldsCount = fieldsCount;
-    this.onFormComplete = onFormComplete;
-  }
+  // TODO: Create a way to remove controls
+  // removeControl(name: string, control: AbstractControl) {
+  //   console.log(control)
+  //   const a = this.addControlState.form as FormArray;
+  //   const index = a.controls.indexOf(control);
+  //   setTimeout(() => a.removeAt(index));
+  // }
 
-  /** It will fire 'onFormComplete' when finished. */
-  initialize(formGroup: FormGroup) {
-    this.formGroup = formGroup;
-    this.fieldsArray = [];
-  }
-
-  /** It will destroy current children and fire 'onFormComplete' when finished. */
-  reinitialize(formGroup: FormGroup) {
-    if (this.isFormComplete === false) { return; }
-    this.isFormComplete = false;
-
-    this.initialize(formGroup);
+  /** It will initialize or reinitialize form */
+  initialize(form: AbstractControl) {
+    this.addControlState = AddControlState.make(form);
     this.resetChildren();
   }
 
-  private completeFormIfFieldsAreReady() {
-    if (this.fieldsCount === this.fieldsArray.length) { setTimeout(() => { this.completeForm(); }); }
-  }
-
-  private completeForm() {
-    this.fieldsArray.forEach(el => {
-      this.formGroup.addControl(el.name, el.control);
-    });
-    this.onFormComplete.emit(null);
-    this.isFormComplete = true;
-  }
-
+  // Only work during reinitialization because before that no one subscribe to OnReset()
   private resetChildren() {
     this.onReset.next();
   }
+}
 
+abstract class AddControlState {
+  form: AbstractControl;
+
+  protected constructor(form: AbstractControl) {
+    this.form = form;
+  }
+
+  static make(form: AbstractControl): AddControlState {
+    if (form instanceof FormGroup) {
+      return new AddGroupControlState(form);
+    }
+    if (form instanceof FormArray) {
+      return new AddArrayControlState(form);
+    }
+    throw new Error('Invalid argument. Must be FormGroup or FormArray.');
+  }
+
+  abstract addControl(name: string, control: AbstractControl);
+}
+
+class AddArrayControlState extends AddControlState {
+  form: FormArray;
+
+  addControl(name: string, control: AbstractControl) {
+    setTimeout(() => this.form.push(control));
+  }
+}
+
+class AddGroupControlState extends AddControlState {
+  form: FormGroup;
+
+  addControl(name: string, control: AbstractControl) {
+    setTimeout(() => this.form.addControl(name, control));
+  }
 }

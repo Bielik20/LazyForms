@@ -1,13 +1,19 @@
 import {
-  Component, ComponentFactory, ComponentFactoryResolver, Input, OnChanges, OnDestroy, OnInit,
+  Component,
+  ComponentFactory,
+  ComponentFactoryResolver,
+  Input,
+  OnDestroy,
+  OnInit,
   ViewChild
 } from '@angular/core';
+import cloneDeep from 'lodash-es/cloneDeep';
 import 'rxjs/add/operator/takeUntil';
 import {Subject} from 'rxjs/Subject';
-import {LazySelectorService} from './lazy-selector.service';
 import {LazyHostDirective} from './lazy-host.directive';
-import {LazyMetadata} from './lazy-metadata';
 import {LazyInputComponent} from './lazy-input.component';
+import {LazyMetadata} from './lazy-metadata';
+import {LazySelectorService} from './lazy-selector.service';
 
 @Component({
   selector: 'lazy-selector',
@@ -15,8 +21,7 @@ import {LazyInputComponent} from './lazy-input.component';
     <ng-template lazyHost></ng-template>
   `,
 })
-export class LazySelectorComponent implements OnInit, OnChanges, OnDestroy {
-
+export class LazySelectorComponent implements OnInit, OnDestroy {
   @Input() value: any;
   @Input() metadata: LazyMetadata;
   @ViewChild(LazyHostDirective) lazyHost: LazyHostDirective;
@@ -28,13 +33,9 @@ export class LazySelectorComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit() {
     this.loadComponent();
-    this.lazySelectorService.onReset.takeUntil(this.ngUnsubscribe).subscribe(() => this.loadComponent());
-  }
-
-  /** Ensures passage of value from a parent component to a child. */
-  ngOnChanges() {
-    // Only value needs to be updated because it can be primitive
-    if (this.componentInstance) { this.componentInstance.value = this.value; }
+    this.lazySelectorService.onReset.takeUntil(this.ngUnsubscribe).subscribe(() => {
+      this.loadComponent();
+    });
   }
 
   ngOnDestroy() {
@@ -49,16 +50,11 @@ export class LazySelectorComponent implements OnInit, OnChanges, OnDestroy {
 
     const componentRef = viewContainerRef.createComponent(componentFactory);
     this.componentInstance = componentRef.instance;
-    this.componentInstance.value = this.value;
+    this.componentInstance.value = cloneDeep(this.value);
     this.componentInstance.metadata = this.metadata;
   }
 
   private getComponentFactory(): ComponentFactory<LazyInputComponent> {
-    if (this.value instanceof Array) {
-      console.log('Value is Array');
-      // TODO: Here it should return factory for an array
-    }
     return this.componentFactoryResolver.resolveComponentFactory(this.metadata.component);
   }
-
 }

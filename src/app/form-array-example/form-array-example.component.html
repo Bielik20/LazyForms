@@ -1,0 +1,14 @@
+<h3>Form Array Example</h3>
+<form lazyForm [formGroup]="form" novalidate>
+  <lazy-selector [value]="model.title" [metadata]="model.metadata('title')"></lazy-selector>
+  <lazy-selector [value]="model.array" [metadata]="model.metadata('array')"></lazy-selector>
+</form>
+
+<p>
+  form value: {{form.value | json}} <br>
+  form valid: {{form.valid}}
+</p>
+<h4>Model Value</h4>
+<pre>
+  {{model | json}}
+</pre>

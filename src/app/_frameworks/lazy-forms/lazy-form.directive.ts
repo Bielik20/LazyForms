@@ -1,8 +1,8 @@
-import {Directive, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {FormGroup} from '@angular/forms';
-import {LazySelectorService} from './lazy-selector.service';
+import {Directive, Input, OnChanges, OnInit} from '@angular/core';
+import {AbstractControl} from '@angular/forms';
 import {LazyFormService} from './lazy-form.service';
 import {LazyInputService} from './lazy-input.service';
+import {LazySelectorService} from './lazy-selector.service';
 
 @Directive({
   selector: '[lazyForm]',
@@ -13,24 +13,15 @@ import {LazyInputService} from './lazy-input.service';
   ],
 })
 export class LazyFormDirective implements OnInit, OnChanges {
+  @Input() formGroup: AbstractControl;
 
-  @Input() formGroup: FormGroup;
-  /** All subscriptions and form related tasks should be done here. */
-  @Output() onFormComplete = new EventEmitter();
-
-  constructor(private elementRef: ElementRef, private lazyFormService: LazyFormService) { }
+  constructor(private lazyFormService: LazyFormService) { }
 
   ngOnInit() {
-    this.lazyFormService.configure(this.onFormComplete, this.fieldsCount);
     this.lazyFormService.initialize(this.formGroup);
   }
 
   ngOnChanges() {
-    this.lazyFormService.reinitialize(this.formGroup);
+    this.lazyFormService.initialize(this.formGroup);
   }
-
-  private get fieldsCount(): number {
-    return this.elementRef.nativeElement.querySelectorAll('lazy-selector').length;
-  }
-
 }

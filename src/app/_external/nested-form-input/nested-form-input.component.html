@@ -1,8 +1,8 @@
-<form lazyForm [formGroup]="form" (onFormComplete)="onFormComplete()" (ngSubmit)="onSubmit()" novalidate>
+<div lazyForm [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
   <lazy-selector [value]="value.firstName" [metadata]="value.metadata('firstName')"></lazy-selector>
   <lazy-selector [value]="value.lastName" [metadata]="value.metadata('lastName')"></lazy-selector>
   <lazy-selector [value]="value.age" [metadata]="value.metadata('age')"></lazy-selector>
 
   <p>form value: {{form.value | json}}</p>
   <P>form valid: {{form.valid}}</P>
-</form>
+</div>

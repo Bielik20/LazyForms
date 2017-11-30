@@ -8,8 +8,6 @@ import {NestedFormExampleComponent} from './nested-form-example.component';
     SharedModule,
     RouterModule.forChild([{path: '', component: NestedFormExampleComponent}])
   ],
-  declarations: [
-    NestedFormExampleComponent,
-  ],
+  declarations: [NestedFormExampleComponent],
 })
 export class NestedFormExampleModule {}

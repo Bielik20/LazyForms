@@ -1,7 +1,7 @@
 import {DefaultInputMetadata} from '../_external/default-input/default-input.component';
 import {metadata, MetadataAccessor} from '../_external/metadata.models';
-import {UserModel} from '../decorators-form-example/model';
 import {NestedFormInputMetadata} from '../_external/nested-form-input/nested-form-input.component';
+import {UserModel} from '../decorators-form-example/model';
 
 export class NestedFormExampleModel extends MetadataAccessor {
   @metadata(new DefaultInputMetadata({

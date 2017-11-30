@@ -20,7 +20,6 @@ export class DefaultInputMetadata extends BaseMetadata {
   styleUrls: ['./default-input.component.scss']
 })
 export class DefaultInputComponent implements OnInit, LazyInputComponent {
-
   @Input() value: string | number | Date;
   @Input() metadata: DefaultInputMetadata;
   formControl: FormControl;
@@ -31,8 +30,14 @@ export class DefaultInputComponent implements OnInit, LazyInputComponent {
     this.createForm();
   }
 
+  // TODO: Create a way to remove controls
+  // ngOnDestroy() {
+  //   console.log('destroy');
+  //   this.dynamicChild['removeControl'](this.metadata.key, this.formControl);
+  // }
+
   private createForm() {
     this.formControl = new FormControl(this.value, this.metadata.validators);
-    this.dynamicChild.addControlAndReportReady(this.metadata.key, this.formControl);
+    this.dynamicChild.addControl(this.metadata.key, this.formControl);
   }
 }

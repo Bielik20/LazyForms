@@ -22,10 +22,6 @@ export class NestedFormInputComponent implements OnInit {
   constructor(private dynamicChild: LazyInputService) { }
 
   ngOnInit() {
+    this.dynamicChild.addControl(this.metadata.key, this.form);
   }
-
-  onFormComplete() {
-    this.dynamicChild.addControlAndReportReady(this.metadata.key, this.form);
-  }
-
 }
