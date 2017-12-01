@@ -18,11 +18,11 @@ export class FormArrayExampleComponent implements OnInit {
   }
 
   private test() {
-    // this.form.valueChanges.subscribe(() => {
-    //   if (this.form.pristine)
-    //     console.log('A');
-    //   else
-    //     console.log('User');
-    // });
+    this.form.valueChanges.subscribe(() => {
+      if (this.form.pristine)
+        console.log('A');
+      else
+        console.log('User');
+    });
   }
 }

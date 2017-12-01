@@ -29,7 +29,6 @@ export class NestedFormExampleComponent implements OnInit {
   testFormReset() {
     this.model.title = this.form.value.userModel.firstName;
     setTimeout(() => this.form = new FormGroup({}));
-    this.form = new FormGroup({});
+    //   this.form = new FormGroup({});
   }
-
 }

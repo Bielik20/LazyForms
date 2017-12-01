@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormArray} from '@angular/forms';
+import {Subject} from 'rxjs/Subject';
 import {LazyInputComponent} from '../../_frameworks/lazy-forms';
 import {DefaultInputMetadata} from '../default-input/default-input.component';
 import {BaseMetadata} from '../metadata.models';
@@ -22,6 +23,7 @@ export class FormArrayInputComponent implements OnInit, LazyInputComponent {
   @Input() value: string[];
   @Input() metadata: FormArrayInputMetadata;
   control: FormArray;
+  reportReady = new Subject();
   altValue = [];
 
   constructor() { }
@@ -29,6 +31,7 @@ export class FormArrayInputComponent implements OnInit, LazyInputComponent {
   ngOnInit() {
     this.value.forEach(item => this.altValue.push({value: item}));
     this.createForm();
+    this.reportReady.next();
   }
 
   private createForm() {
@@ -36,6 +39,7 @@ export class FormArrayInputComponent implements OnInit, LazyInputComponent {
   }
 
   addItem() {
+    this.control.markAsDirty();
     this.altValue.push({value: ''});
   }
 

@@ -1,11 +1,10 @@
 import {Injectable, Output} from '@angular/core';
 import {AbstractControl, FormArray, FormGroup} from '@angular/forms';
 import {Subject} from 'rxjs/Subject';
-import {LazyInputService} from './lazy-input.service';
 import {LazySelectorService} from './lazy-selector.service';
 
 @Injectable()
-export class LazyFormService implements LazyInputService, LazySelectorService {
+export class LazyFormService implements LazySelectorService {
 
   @Output() onReset = new Subject();
   private controlOperations: ControlOperations;

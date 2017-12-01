@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
+import {Subject} from 'rxjs/Subject';
 import {LazyInputComponent} from '../../_frameworks/lazy-forms';
 import {BaseMetadata} from '../metadata.models';
 
@@ -23,13 +24,14 @@ export class DefaultInputComponent implements OnInit, LazyInputComponent {
   @Input() value: string | number | Date;
   @Input() metadata: DefaultInputMetadata;
   control: FormControl;
+  reportReady = new Subject();
   guid = Math.floor(Math.random() * 100);
 
   constructor() { }
 
   ngOnInit() {
     this.createForm();
-    // console.log('init', this.value);
+    this.reportReady.next();
   }
 
   private createForm() {

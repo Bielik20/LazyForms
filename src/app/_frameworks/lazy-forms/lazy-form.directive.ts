@@ -1,7 +1,6 @@
-import {Directive, Input, OnChanges, OnInit} from '@angular/core';
+import {Directive, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {AbstractControl} from '@angular/forms';
 import {LazyFormService} from './lazy-form.service';
-import {LazyInputService} from './lazy-input.service';
 import {LazySelectorService} from './lazy-selector.service';
 
 @Directive({
@@ -9,7 +8,6 @@ import {LazySelectorService} from './lazy-selector.service';
   providers: [
     LazyFormService,
     {provide: LazySelectorService, useExisting: LazyFormService},
-    {provide: LazyInputService, useExisting: LazyFormService}
   ],
 })
 export class LazyFormDirective implements OnInit, OnChanges {
@@ -21,7 +19,10 @@ export class LazyFormDirective implements OnInit, OnChanges {
     this.lazyFormService.initialize(this.formGroup);
   }
 
-  ngOnChanges() {
-    this.lazyFormService.initialize(this.formGroup);
+  ngOnChanges(changes: SimpleChanges) {
+    for (const propName in changes) {
+      if (changes[propName].isFirstChange()) { continue; }
+      this.lazyFormService.initialize(this.formGroup);
+    }
   }
 }
