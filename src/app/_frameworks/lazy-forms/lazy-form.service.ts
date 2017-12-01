@@ -1,30 +1,26 @@
-import {EventEmitter, Injectable, Output} from '@angular/core';
+import {Injectable, Output} from '@angular/core';
 import {AbstractControl, FormArray, FormGroup} from '@angular/forms';
-import {LazySelectorService} from './lazy-selector.service';
 import {Subject} from 'rxjs/Subject';
 import {LazyInputService} from './lazy-input.service';
+import {LazySelectorService} from './lazy-selector.service';
 
 @Injectable()
 export class LazyFormService implements LazyInputService, LazySelectorService {
 
   @Output() onReset = new Subject();
-  private addControlState: AddControlState;
+  private controlOperations: ControlOperations;
 
   addControl(name: string, control: AbstractControl) {
-    this.addControlState.addControl(name, control);
+    this.controlOperations.addControl(name, control);
   }
 
-  // TODO: Create a way to remove controls
   removeControl(name: string, control: AbstractControl) {
-    const a = this.addControlState.form as FormArray;
-    const index = a.controls.indexOf(control);
-    console.log(a, control.value, index);
-    setTimeout(() => a.removeAt(index));
+    this.controlOperations.removeControl(name, control);
   }
 
   /** It will initialize or reinitialize form */
   initialize(form: AbstractControl) {
-    this.addControlState = AddControlState.make(form);
+    this.controlOperations = ControlOperations.create(form);
     this.resetChildren();
   }
 
@@ -34,38 +30,49 @@ export class LazyFormService implements LazyInputService, LazySelectorService {
   }
 }
 
-abstract class AddControlState {
+abstract class ControlOperations {
   form: AbstractControl;
 
   protected constructor(form: AbstractControl) {
     this.form = form;
   }
 
-  static make(form: AbstractControl): AddControlState {
+  static create(form: AbstractControl): ControlOperations {
     if (form instanceof FormGroup) {
-      return new AddGroupControlState(form);
+      return new FormGroupOperations(form);
     }
     if (form instanceof FormArray) {
-      return new AddArrayControlState(form);
+      return new FormArrayOperations(form);
     }
     throw new Error('Invalid argument. Must be FormGroup or FormArray.');
   }
 
   abstract addControl(name: string, control: AbstractControl);
+
+  abstract removeControl(name: string, control: AbstractControl);
 }
 
-class AddArrayControlState extends AddControlState {
+class FormArrayOperations extends ControlOperations {
   form: FormArray;
 
   addControl(name: string, control: AbstractControl) {
     setTimeout(() => this.form.push(control));
   }
+
+  removeControl(name: string, control: AbstractControl) {
+    const index = this.form.controls.indexOf(control);
+    setTimeout(() => this.form.removeAt(index));
+  }
 }
 
-class AddGroupControlState extends AddControlState {
+class FormGroupOperations extends ControlOperations {
   form: FormGroup;
 
   addControl(name: string, control: AbstractControl) {
     setTimeout(() => this.form.addControl(name, control));
+  }
+
+  removeControl(name: string, control: AbstractControl) {
+    setTimeout(() => this.form.removeControl(name));
   }
 }

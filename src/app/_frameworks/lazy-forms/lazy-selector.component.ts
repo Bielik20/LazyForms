@@ -10,6 +10,7 @@ import {
 import cloneDeep from 'lodash-es/cloneDeep';
 import 'rxjs/add/operator/takeUntil';
 import {Subject} from 'rxjs/Subject';
+import {LazyFormService} from './lazy-form.service';
 import {LazyHostDirective} from './lazy-host.directive';
 import {LazyInputComponent} from './lazy-input.component';
 import {LazyMetadata} from './lazy-metadata';
@@ -18,7 +19,7 @@ import {LazySelectorService} from './lazy-selector.service';
 @Component({
   selector: 'lazy-selector',
   template: `
-    <ng-template lazyHost></ng-template>
+    <ng-template lazyHost (onDestroy)="onChildDestroy()" (afterViewInit)="afterChildViewInit()"></ng-template>
   `,
 })
 export class LazySelectorComponent implements OnInit, OnDestroy {
@@ -29,10 +30,10 @@ export class LazySelectorComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
-              private lazySelectorService: LazySelectorService) { }
+              // private lazySelectorService: LazySelectorService,
+              private lazySelectorService: LazyFormService) { }
 
   ngOnInit() {
-    console.log('LazySelector Init', this.value);
     this.loadComponent();
     this.lazySelectorService.onReset.takeUntil(this.ngUnsubscribe).subscribe(() => {
       this.loadComponent();
@@ -40,9 +41,18 @@ export class LazySelectorComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log(this.componentInstance['formControl'].value);
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
+  }
+
+  afterChildViewInit() {
+    console.log('afterChildViewInit');
+    this.lazySelectorService.addControl(this.componentInstance.metadata.key, this.componentInstance.control);
+  }
+
+  onChildDestroy() {
+    console.log('onChildDestroy');
+    this.lazySelectorService.removeControl(this.componentInstance.metadata.key, this.componentInstance.control);
   }
 
   private loadComponent() {

@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {BaseMetadata} from '../metadata.models';
-import {UserModel} from '../../decorators-form-example/model';
-import {LazyInputService} from '../../_frameworks/lazy-forms';
 import {FormGroup} from '@angular/forms';
+import {LazyInputComponent} from '../../_frameworks/lazy-forms';
+import {UserModel} from '../../decorators-form-example/model';
+import {BaseMetadata} from '../metadata.models';
 
 export class NestedFormInputMetadata extends BaseMetadata {
   component = NestedFormInputComponent;
@@ -13,15 +13,13 @@ export class NestedFormInputMetadata extends BaseMetadata {
   templateUrl: './nested-form-input.component.html',
   styleUrls: ['./nested-form-input.component.scss']
 })
-export class NestedFormInputComponent implements OnInit {
+export class NestedFormInputComponent implements OnInit, LazyInputComponent {
 
   @Input() value: UserModel;
   @Input() metadata: NestedFormInputMetadata;
-  form = new FormGroup({});
+  control = new FormGroup({});
 
-  constructor(private dynamicChild: LazyInputService) { }
+  constructor() { }
 
-  ngOnInit() {
-    this.dynamicChild.addControl(this.metadata.key, this.form);
-  }
+  ngOnInit() { }
 }
