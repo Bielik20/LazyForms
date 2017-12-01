@@ -23,9 +23,12 @@ export class FormArrayInputComponent implements OnInit {
   @Input() metadata: FormArrayInputMetadata;
   formArray: FormArray;
 
+  altValue = [];
+
   constructor(private dynamicChild: LazyInputService) { }
 
   ngOnInit() {
+    this.value.forEach(item => this.altValue.push({value: item}));
     this.createForm();
   }
 
@@ -35,13 +38,22 @@ export class FormArrayInputComponent implements OnInit {
   }
 
   addItem() {
-    this.value.push('');
+    this.altValue.push({value: ''}); 
+    // this.value[0] = "test"
+    // console.log(this.value)
   }
 
-  removeItem(item: string) {
-    const index = this.value.indexOf(item);
-    if (index > -1) {
-      this.value.splice(index, 1);
-    }
+  removeItem(index: number) {
+    console.log('form-array-input', index, this.formArray.at(index));
+    console.log(this.altValue);
+    this.altValue.splice(index, 1);
+    console.log(this.altValue);
+
+
+    // const index = this.value.indexOf(item);
+    // console.log(index);
+    // if (index > -1) {
+    //   this.value.splice(index, 1);
+    // }
   }
 }

@@ -23,18 +23,21 @@ export class DefaultInputComponent implements OnInit, LazyInputComponent {
   @Input() value: string | number | Date;
   @Input() metadata: DefaultInputMetadata;
   formControl: FormControl;
+  test;
+  guid = Math.floor(Math.random() * 100);
 
   constructor(private dynamicChild: LazyInputService) { }
 
   ngOnInit() {
     this.createForm();
+    this.test = this.dynamicChild['addControlState'].form;
   }
 
   // TODO: Create a way to remove controls
-  // ngOnDestroy() {
-  //   console.log('destroy');
-  //   this.dynamicChild['removeControl'](this.metadata.key, this.formControl);
-  // }
+  ngOnDestroy() {
+    console.log('destroy', this.formControl.value);
+    this.dynamicChild['removeControl'](this.metadata.key, this.formControl);
+  }
 
   private createForm() {
     this.formControl = new FormControl(this.value, this.metadata.validators);

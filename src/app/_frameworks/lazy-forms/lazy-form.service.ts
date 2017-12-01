@@ -15,12 +15,12 @@ export class LazyFormService implements LazyInputService, LazySelectorService {
   }
 
   // TODO: Create a way to remove controls
-  // removeControl(name: string, control: AbstractControl) {
-  //   console.log(control)
-  //   const a = this.addControlState.form as FormArray;
-  //   const index = a.controls.indexOf(control);
-  //   setTimeout(() => a.removeAt(index));
-  // }
+  removeControl(name: string, control: AbstractControl) {
+    const a = this.addControlState.form as FormArray;
+    const index = a.controls.indexOf(control);
+    console.log(a, control.value, index);
+    setTimeout(() => a.removeAt(index));
+  }
 
   /** It will initialize or reinitialize form */
   initialize(form: AbstractControl) {

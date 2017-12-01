@@ -9,7 +9,7 @@ import {FormArrayExampleModel} from './model';
 })
 export class FormArrayExampleComponent implements OnInit {
   form = new FormGroup({});
-  model = new FormArrayExampleModel();
+  model = new FormArrayExampleModel({array: ['a', 'b', 'a']});
 
   constructor() { }
 
@@ -18,11 +18,11 @@ export class FormArrayExampleComponent implements OnInit {
   }
 
   private test() {
-    this.form.valueChanges.subscribe(() => {
-      if (this.form.pristine)
-        console.log('A');
-      else
-        console.log('User');
-    });
+    // this.form.valueChanges.subscribe(() => {
+    //   if (this.form.pristine)
+    //     console.log('A');
+    //   else
+    //     console.log('User');
+    // });
   }
 }

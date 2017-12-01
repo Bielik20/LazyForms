@@ -32,6 +32,7 @@ export class LazySelectorComponent implements OnInit, OnDestroy {
               private lazySelectorService: LazySelectorService) { }
 
   ngOnInit() {
+    console.log('LazySelector Init', this.value);
     this.loadComponent();
     this.lazySelectorService.onReset.takeUntil(this.ngUnsubscribe).subscribe(() => {
       this.loadComponent();
@@ -39,6 +40,7 @@ export class LazySelectorComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    console.log(this.componentInstance['formControl'].value);
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }

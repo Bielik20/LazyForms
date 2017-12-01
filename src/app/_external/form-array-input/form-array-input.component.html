@@ -1,7 +1,7 @@
 <div lazyForm [formGroup]="formArray">
-  <div *ngFor="let item of value">
-    <button (click)="removeItem(item)">X</button>
-    <lazy-selector [value]="item" [metadata]="metadata.child"></lazy-selector>
+  <div *ngFor="let item of altValue; let ind = index">
+    <button (click)="removeItem(ind)">X {{ind}}</button>
+    <lazy-selector [value]="altValue[ind].value" [metadata]="metadata.child"></lazy-selector>
   </div>
   <button (click)="addItem()">Add</button>
 </div>
