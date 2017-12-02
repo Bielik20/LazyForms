@@ -1,8 +1,11 @@
+<h4>{{metadata.key}}</h4>
+<pre [ngClass]="{'invalid': control.invalid, 'valid': control.valid}">
+<b>value:</b> {{value | json}}
+<b>control value:</b> {{control.value | json}}
+</pre>
+
 <div lazyForm [formGroup]="control" (ngSubmit)="onSubmit()" novalidate>
   <lazy-selector [value]="value.firstName" [metadata]="value.metadata('firstName')"></lazy-selector>
   <lazy-selector [value]="value.lastName" [metadata]="value.metadata('lastName')"></lazy-selector>
   <lazy-selector [value]="value.age" [metadata]="value.metadata('age')"></lazy-selector>
-
-  <p>form value: {{control.value | json}}</p>
-  <P>form valid: {{control.valid}}</P>
 </div>

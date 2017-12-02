@@ -1,11 +1,13 @@
+<h4>{{metadata.key}}</h4>
+<pre [ngClass]="{'invalid': control.invalid, 'valid': control.valid}">
+<b>value:</b> {{value | json}}
+<b>control value:</b> {{control.value | json}}
+</pre>
+
 <div lazyForm [formGroup]="control">
-  <div *ngFor="let item of altValue">
-    <button (click)="removeItem(item)">X</button>
-    <lazy-selector [value]="item.value" [metadata]="metadata.child"></lazy-selector>
+  <div *ngFor="let item of altValue" class="row">
+    <button class="col-md-1" (click)="removeItem(item)">X</button>
+    <lazy-selector class="col-md-11" [value]="item.value" [metadata]="metadata.child"></lazy-selector>
   </div>
-  <button (click)="addItem()">Add</button>
+  <button class="btn btn-primary" style="width: 100%" (click)="addItem()">Add</button>
 </div>
-<p>
-  form value: {{control.value | json}} <br>
-  form valid: {{control.valid}}
-</p>

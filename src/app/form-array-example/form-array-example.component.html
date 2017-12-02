@@ -1,11 +1,17 @@
 <h3>Form Array Example</h3>
-<form lazyForm [formGroup]="form" novalidate>
-  <lazy-selector [value]="model.array" [metadata]="model.metadata('array')"></lazy-selector>
-</form>
+<div class="row">
 
-<p>
-  form value: {{form.value | json}} <br>
-  form valid: {{form.valid}}
-</p>
-<h4>Model Value</h4>
-<pre>{{model | json}}</pre>
+  <div class="col-md-8">
+    <form lazyForm [formGroup]="form" novalidate>
+      <lazy-selector [value]="model.array" [metadata]="model.metadata('array')"></lazy-selector>
+    </form>
+  </div>
+
+  <div class="col-md-4">
+<pre [ngClass]="{'invalid': form.invalid, 'valid': form.valid}">
+<b>model value:</b> {{model | json}}
+<b>form value:</b> {{form.value | json}}
+</pre>
+  </div>
+
+</div>
