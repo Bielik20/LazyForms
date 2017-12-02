@@ -14,16 +14,8 @@ export class NestedFormInputMetadata extends BaseMetadata {
   templateUrl: './nested-form-input.component.html',
   styleUrls: ['./nested-form-input.component.scss']
 })
-export class NestedFormInputComponent implements OnInit, LazyInputComponent {
-
+export class NestedFormInputComponent implements LazyInputComponent {
   @Input() value: UserModel;
   @Input() metadata: NestedFormInputMetadata;
   control = new FormGroup({});
-  reportReady = new Subject();
-
-  constructor() { }
-
-  ngOnInit() {
-    this.reportReady.next();
-  }
 }

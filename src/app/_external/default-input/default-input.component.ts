@@ -24,14 +24,10 @@ export class DefaultInputComponent implements OnInit, LazyInputComponent {
   @Input() value: string | number | Date;
   @Input() metadata: DefaultInputMetadata;
   control: FormControl;
-  reportReady = new Subject();
   guid = Math.floor(Math.random() * 100);
-
-  constructor() { }
 
   ngOnInit() {
     this.createForm();
-    this.reportReady.next();
   }
 
   private createForm() {
