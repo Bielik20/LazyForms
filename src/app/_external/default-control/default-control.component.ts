@@ -1,13 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {Subject} from 'rxjs/Subject';
-import {LazyInputComponent} from '../../_frameworks/lazy-forms';
+import {LazyControlComponent} from '../../_frameworks/lazy-forms';
 import {BaseMetadata} from '../metadata.models';
 
-export class DefaultInputMetadata extends BaseMetadata {
+export class DefaultControlMetadata extends BaseMetadata {
   type: string;
   step?: number;
-  component = DefaultInputComponent;
+  component = DefaulControlComponent;
 
   constructor(options: {} = {}) {
     super(options);
@@ -17,12 +16,12 @@ export class DefaultInputMetadata extends BaseMetadata {
 }
 
 @Component({
-  templateUrl: './default-input.component.html',
-  styleUrls: ['./default-input.component.scss']
+  templateUrl: './default-control.component.html',
+  styleUrls: ['./default-control.component.scss']
 })
-export class DefaultInputComponent implements OnInit, LazyInputComponent {
+export class DefaulControlComponent implements OnInit, LazyControlComponent {
   @Input() value: string | number | Date;
-  @Input() metadata: DefaultInputMetadata;
+  @Input() metadata: DefaultControlMetadata;
   control: FormControl;
 
   ngOnInit() {

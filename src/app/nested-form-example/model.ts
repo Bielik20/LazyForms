@@ -1,15 +1,15 @@
-import {DefaultInputMetadata} from '../_external/default-input/default-input.component';
+import {DefaultControlMetadata} from '../_external/default-control/default-control.component';
 import {metadata, MetadataAccessor} from '../_external/metadata.models';
-import {NestedFormInputMetadata} from '../_external/nested-form-input/nested-form-input.component';
+import {NestedFormControlMetadata} from '../_external/nested-form-control/nested-form-control.component';
 import {UserModel} from '../decorators-form-example/model';
 
 export class NestedFormExampleModel extends MetadataAccessor {
-  @metadata(new DefaultInputMetadata({
+  @metadata(new DefaultControlMetadata({
     label: 'Title',
   }))
   title: string;
 
-  @metadata(new NestedFormInputMetadata())
+  @metadata(new NestedFormControlMetadata())
   userModel: UserModel;
 
   constructor(options: {} = {}) {

@@ -1,19 +1,19 @@
-import {DefaultInputMetadata} from '../_external/default-input/default-input.component';
+import {DefaultControlMetadata} from '../_external/default-control/default-control.component';
 import {metadata, MetadataAccessor} from '../_external/metadata.models';
 
 export class UserModel extends MetadataAccessor {
-  @metadata(new DefaultInputMetadata({
+  @metadata(new DefaultControlMetadata({
     label: 'First Name',
     required: true,
   }))
   firstName: string;
 
-  @metadata(new DefaultInputMetadata({
+  @metadata(new DefaultControlMetadata({
     label: 'Last Name',
   }))
   lastName: string;
 
-  @metadata(new DefaultInputMetadata({
+  @metadata(new DefaultControlMetadata({
     label: 'Age',
     type: 'number'
   }))

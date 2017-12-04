@@ -2,20 +2,20 @@ import {AbstractControl} from '@angular/forms';
 import {Subject} from 'rxjs/Subject';
 import {LazyMetadata} from './lazy-metadata';
 
-export abstract class LazyInputComponent {
+export abstract class LazyControlComponent {
   abstract value: any;
   abstract metadata: LazyMetadata;
   abstract control: AbstractControl;
 }
 
-export abstract class LazyInputComponentExtended extends LazyInputComponent {
+export abstract class LazyControlComponentExtended extends LazyControlComponent {
   controlSetStart: Subject<any>;
   controlSetEnd: Subject<any>;
 
-  static supplement(target: LazyInputComponent): LazyInputComponentExtended {
+  static supplement(target: LazyControlComponent): LazyControlComponentExtended {
     // supply subjects
-    (target as LazyInputComponentExtended).controlSetStart = new Subject();
-    (target as LazyInputComponentExtended).controlSetEnd = new Subject();
+    (target as LazyControlComponentExtended).controlSetStart = new Subject();
+    (target as LazyControlComponentExtended).controlSetEnd = new Subject();
 
     // property value
     let _control = target['control'];
@@ -43,6 +43,6 @@ export abstract class LazyInputComponentExtended extends LazyInputComponent {
       });
     }
 
-    return target as LazyInputComponentExtended;
+    return target as LazyControlComponentExtended;
   }
 }

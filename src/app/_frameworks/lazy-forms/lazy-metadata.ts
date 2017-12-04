@@ -1,6 +1,9 @@
+import {Type} from '@angular/core';
+import {LazyControlComponent} from './lazy-control.component';
+
 export abstract class LazyMetadata {
   key: string;
-  abstract readonly component: any;
+  abstract readonly component: Type<LazyControlComponent>;
 
   constructor(options: {} = {}) {
     this.key = options['key'];

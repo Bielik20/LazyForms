@@ -1,15 +1,15 @@
-import {DefaultInputMetadata} from '../_external/default-input/default-input.component';
-import {FormArrayInputMetadata} from '../_external/form-array-input/form-array-input.component';
+import {DefaultControlMetadata} from '../_external/default-control/default-control.component';
+import {FormArrayControlMetadata} from '../_external/form-array-control/form-array-control.component';
 import {metadata, MetadataAccessor} from '../_external/metadata.models';
 
 export class FormArrayExampleModel extends MetadataAccessor {
-  @metadata(new DefaultInputMetadata({
+  @metadata(new DefaultControlMetadata({
     label: 'Label for Title',
     placeholder: 'My placeholder'
   }))
   title: string;
 
-  @metadata(new FormArrayInputMetadata({minLength: 4}))
+  @metadata(new FormArrayControlMetadata({minLength: 4}))
   array: string[];
 
   constructor(options: {} = {}) {

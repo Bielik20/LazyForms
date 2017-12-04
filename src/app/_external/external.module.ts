@@ -3,9 +3,9 @@ import {NgModule} from '@angular/core';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {ReactiveFormsModule} from '@angular/forms';
 import {LazyFormModule} from '../_frameworks/lazy-forms';
-import {DefaultInputComponent} from './default-input/default-input.component';
-import {NestedFormInputComponent} from './nested-form-input/nested-form-input.component';
-import {FormArrayInputComponent} from './form-array-input/form-array-input.component';
+import {DefaulControlComponent} from './default-control/default-control.component';
+import {NestedFormControlComponent} from './nested-form-control/nested-form-control.component';
+import {FormArrayControlComponent} from './form-array-control/form-array-control.component';
 
 @NgModule({
   imports: [
@@ -15,14 +15,14 @@ import {FormArrayInputComponent} from './form-array-input/form-array-input.compo
     LazyFormModule,
   ],
   declarations: [
-    DefaultInputComponent,
-    NestedFormInputComponent,
-    FormArrayInputComponent,
+    DefaulControlComponent,
+    NestedFormControlComponent,
+    FormArrayControlComponent,
   ],
   entryComponents: [
-    DefaultInputComponent,
-    NestedFormInputComponent,
-    FormArrayInputComponent,
+    DefaulControlComponent,
+    NestedFormControlComponent,
+    FormArrayControlComponent,
   ]
 })
 export class ExternalModule {}

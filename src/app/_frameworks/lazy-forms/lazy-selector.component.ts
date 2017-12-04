@@ -13,7 +13,7 @@ import cloneDeep from 'lodash-es/cloneDeep';
 import 'rxjs/add/operator/takeUntil';
 import {Subject} from 'rxjs/Subject';
 import {LazyHostDirective} from './lazy-host.directive';
-import {LazyInputComponent, LazyInputComponentExtended} from './lazy-input.component';
+import {LazyControlComponent, LazyControlComponentExtended} from './lazy-control.component';
 import {LazyMetadata} from './lazy-metadata';
 import {LazySelectorService} from './lazy-selector.service';
 
@@ -27,7 +27,7 @@ export class LazySelectorComponent implements OnInit, OnDestroy {
   @Input() value: any;
   @Input() metadata: LazyMetadata;
   @ViewChild(LazyHostDirective) lazyHost: LazyHostDirective;
-  private child: LazyInputComponentExtended;
+  private child: LazyControlComponentExtended;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
@@ -63,7 +63,7 @@ export class LazySelectorComponent implements OnInit, OnDestroy {
   private loadChild() {
     const viewContainerRef = this.clearComponent();
     const componentRef = viewContainerRef.createComponent(this.getComponentFactory());
-    this.child = LazyInputComponentExtended.supplement(componentRef.instance);
+    this.child = LazyControlComponentExtended.supplement(componentRef.instance);
     this.setChildValueAndMetadata();
     this.addChildControlIfExists();
     this.setHooks(componentRef);
@@ -75,7 +75,7 @@ export class LazySelectorComponent implements OnInit, OnDestroy {
     return viewContainerRef;
   }
 
-  private getComponentFactory(): ComponentFactory<LazyInputComponent> {
+  private getComponentFactory(): ComponentFactory<LazyControlComponent> {
     return this.componentFactoryResolver.resolveComponentFactory(this.metadata.component);
   }
 
@@ -84,7 +84,7 @@ export class LazySelectorComponent implements OnInit, OnDestroy {
     this.child.metadata = this.metadata;
   }
 
-  private setHooks(componentRef: ComponentRef<LazyInputComponent>) {
+  private setHooks(componentRef: ComponentRef<LazyControlComponent>) {
     componentRef.onDestroy(() => this.removeChildControl());
     this.child.controlSetStart.takeUntil(this.ngUnsubscribe)
       .subscribe(() => {
