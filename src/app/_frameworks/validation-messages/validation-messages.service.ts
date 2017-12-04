@@ -16,7 +16,7 @@ export class ValidationMessagesService {
   }
 
   static provide(repository?: ValidationMessagesRepository) {
-    return { provide: ValidationMessagesService, useFactory: () => new ValidationMessagesService(repository) };
+    return { provide: ValidationMessagesService, useFactory() { return new ValidationMessagesService(repository); }};
   }
 
   getFirst(control: AbstractControl): string {

@@ -1,7 +1,7 @@
 <h3>Nested Form Example</h3>
 <div fxLayout="row" class="grid--hor--2">
   <div fxFlex="2 0 400px" class="grid__el">
-    <form lazyForm [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <form lazyForm [formGroup]="form" novalidate>
       <lazy-selector [value]="model.title" [metadata]="model.metadata('title')"></lazy-selector>
       <lazy-selector [value]="model.userModel" [metadata]="model.metadata('userModel')"></lazy-selector>
       <button type="button" class="btn btn-danger" (click)="testFormReset()">Test Reset</button>

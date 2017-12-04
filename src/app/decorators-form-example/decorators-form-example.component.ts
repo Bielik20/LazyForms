@@ -8,7 +8,6 @@ import {UserModel} from './model';
   styleUrls: ['./decorators-form-example.component.scss']
 })
 export class DecoratorsFormExampleComponent {
-
   form = new FormGroup({});
   model = new UserModel({lastName: 'This value is predefined'});
 
