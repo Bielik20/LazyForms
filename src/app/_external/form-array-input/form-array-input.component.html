@@ -1,13 +1,18 @@
-<h4>{{metadata.key}}</h4>
+<div fxLayout="row" class="grid--hor--2">
+  <div fxFlex="2 0 400px" class="grid__el">
+    <div lazyForm [formGroup]="control">
+      <div *ngFor="let item of altValue" class="row">
+        <button class="col-md-1" (click)="removeItem(item)">X</button>
+        <lazy-selector class="col-md-11" [value]="item.value" [metadata]="metadata.child"></lazy-selector>
+      </div>
+      <button class="btn btn-primary" style="width: 100%" (click)="addItem()">Add</button>
+    </div>
+  </div>
+  <div fxFlex="0.5 0 300px" class="grid__el">
 <pre [ngClass]="{'invalid': control.invalid, 'valid': control.valid}">
+<span class="head">{{metadata.key}}</span>
 <b>value:</b> {{value | json}}
 <b>control value:</b> {{control.value | json}}
 </pre>
-
-<div lazyForm [formGroup]="control">
-  <div *ngFor="let item of altValue" class="row">
-    <button class="col-md-1" (click)="removeItem(item)">X</button>
-    <lazy-selector class="col-md-11" [value]="item.value" [metadata]="metadata.child"></lazy-selector>
   </div>
-  <button class="btn btn-primary" style="width: 100%" (click)="addItem()">Add</button>
 </div>

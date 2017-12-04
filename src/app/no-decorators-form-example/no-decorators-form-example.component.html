@@ -1,18 +1,15 @@
 <h3>No Decorators Form</h3>
-<div class="row">
-
-  <div class="col-md-8">
+<div fxLayout="row" class="grid--hor--2">
+  <div fxFlex="2 0 400px" class="grid__el">
     <form lazyForm [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
       <lazy-selector [value]="value" [metadata]="metadata"></lazy-selector>
       <button type="submit" class="btn btn-success" [disabled]="form.invalid">Submit</button>
     </form>
   </div>
-
-  <div class="col-md-4">
+  <div fxFlex="0.5 0 300px" class="grid__el">
 <pre [ngClass]="{'invalid': form.invalid, 'valid': form.valid}">
 <b>model value:</b> {{value | json}}
 <b>form value:</b> {{form.value | json}}
 </pre>
   </div>
-
 </div>

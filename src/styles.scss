@@ -82,6 +82,50 @@ nav a.active {
   border-left: 5px solid #42A948; /* green */
 }
 
+pre {
+  height: 100%;
+}
+
+pre .head {
+  font-size: 18px;
+  text-decoration: underline;
+}
+
+$baseline: 6px;
+
+@for $i from 1 through 6 {
+  .grid--hor--#{$i} {
+    margin-left: -$i*$baseline/2;
+    margin-right: -$i*$baseline/2;
+  }
+  .grid--hor--#{$i} > .grid__el {
+    position: relative;
+    min-height: 1px;
+    padding-left: $i*$baseline/2;
+    padding-right: $i*$baseline/2;
+  }
+
+  .grid--ver--#{$i} {
+    margin-top: -$i*$baseline/2;
+    margin-bottom: -$i*$baseline/2;
+  }
+  .grid--ver--#{$i} > .grid__el {
+    position: relative;
+    min-height: 1px;
+    padding-top: $i*$baseline/2;
+    padding-bottom: $i*$baseline/2;
+  }
+
+  .grid--#{$i} {
+    margin: -$i*$baseline/2;
+  }
+  .grid--#{$i} > .grid__el {
+    position: relative;
+    min-height: 1px;
+    padding: $i*$baseline/2;
+  }
+}
+
 /*
 Copyright 2017 Google Inc. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that

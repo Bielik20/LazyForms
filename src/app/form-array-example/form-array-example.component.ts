@@ -14,15 +14,15 @@ export class FormArrayExampleComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.test();
+    this.logChangeDetection();
   }
 
-  private test() {
+  private logChangeDetection() {
     this.form.valueChanges.subscribe(() => {
       if (this.form.pristine)
-        console.log('A');
+        console.log('Pristine');
       else
-        console.log('User');
+        console.log('DIRTY');
     });
   }
 }

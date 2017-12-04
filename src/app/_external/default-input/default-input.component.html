@@ -1,6 +1,7 @@
 <div class="form-group">
   <label class="center-block">{{metadata.label}}
     <input class="form-control" [ngClass]="{'invalid': control.invalid, 'valid': control.valid}"
-           [formControl]="control" [type]="metadata.type" [required]="metadata.required">
+           [formControl]="control" [type]="metadata.type" [required]="metadata.required"
+           [placeholder]="metadata.placeholder">
   </label>
 </div>

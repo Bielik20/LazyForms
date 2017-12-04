@@ -14,21 +14,25 @@ export class NestedFormExampleComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.test();
+    this.logChangeDetection();
   }
 
-  private test() {
+  private logChangeDetection() {
     this.form.valueChanges.subscribe(() => {
       if (this.form.pristine)
-        console.log('A');
+        console.log('Pristine');
       else
-        console.log('User');
+        console.log('DIRTY');
     });
   }
 
   testFormReset() {
     this.model.title = this.form.value.userModel.firstName;
-    setTimeout(() => this.form = new FormGroup({}));
-    //   this.form = new FormGroup({});
+    setTimeout(() => {
+      this.form = new FormGroup({});
+      this.logChangeDetection();
+    });
+    // this.form = new FormGroup({});
+    // this.logChangeDetection();
   }
 }

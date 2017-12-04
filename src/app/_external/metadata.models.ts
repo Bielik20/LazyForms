@@ -3,12 +3,14 @@ import {getLazyMetadata, LazyMetadata, setLazyMetadata} from '../_frameworks/laz
 
 abstract class DisplayMetadata extends LazyMetadata {
   label?: string;
+  placeholder?: string;
   icon?: string;
 
   constructor(options: {} = {}) {
     super(options);
     this.label = options['label'] || null;
     this.icon = options['icon'] || null;
+    this.placeholder = options['placeholder'] || '';
   }
 }
 
