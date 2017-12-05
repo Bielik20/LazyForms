@@ -3,16 +3,16 @@ export class ValidationMessagesRepository {
 
   protected min(validationObject: any): string {
     const min = validationObject.min;
-    return `Value cannot be lower than ${min}.`;
+    return `Value cannot be lower than ${min}`;
   }
 
   protected max(validationObject: any): string {
     const max = validationObject.max;
-    return `Value cannot be higher than ${max}.`;
+    return `Value cannot be higher than ${max}`;
   }
 
   protected required(validationObject: any): string {
-    return `This field cannot be empty.`;
+    return `This field cannot be empty`;
   }
 
   protected email(validationObject: any): string {

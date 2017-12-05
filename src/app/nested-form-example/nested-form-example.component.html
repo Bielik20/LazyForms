@@ -8,7 +8,7 @@
     </form>
   </div>
   <div fxFlex="0.5 0 300px" class="grid__el">
-<pre [ngClass]="{'invalid': form.invalid, 'valid': form.valid}">
+<pre class="height-100pct" [ngClass]="{'invalid': form.invalid, 'valid': form.valid}">
 <b>model value:</b> {{model | json}}
 <b>form value:</b> {{form.value | json}}
 </pre>

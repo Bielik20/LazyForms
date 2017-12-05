@@ -48,6 +48,6 @@ describe('ValidationMessagesService', () => {
   }));
   it('should get dictionary - empty', inject([ValidationMessagesService], (service: ValidationMessagesService) => {
     const dictionary = service.getDictionary(empty);
-    expect(dictionary).toEqual({});
+    expect(dictionary).toEqual(({} as Map<string, string>));
   }));
 });

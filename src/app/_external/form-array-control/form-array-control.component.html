@@ -5,11 +5,12 @@
         <button class="col-md-1" (click)="removeItem(item)">X</button>
         <lazy-selector class="col-md-11" [value]="item.value" [metadata]="metadata.child"></lazy-selector>
       </div>
+      <app-validation-messages [control]="control"></app-validation-messages>
       <button class="btn btn-primary" style="width: 100%" (click)="addItem()">Add</button>
     </div>
   </div>
   <div fxFlex="0.5 0 300px" class="grid__el">
-<pre [ngClass]="{'invalid': control.invalid, 'valid': control.valid}">
+<pre class="height-100pct" [ngClass]="{'invalid': control.invalid, 'valid': control.valid}">
 <span class="head">{{metadata.key}}</span>
 <b>value:</b> {{value | json}}
 <b>control value:</b> {{control.value | json}}

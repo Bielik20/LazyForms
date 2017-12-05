@@ -34,7 +34,7 @@ export class ValidationMessagesService {
     return array;
   }
 
-  getDictionary(control: AbstractControl): any {
+  getDictionary(control: AbstractControl): Map<string, string> {
     const dictionary: any = {};
     const generator = this.getMessage(control);
     for (const result of generator) {

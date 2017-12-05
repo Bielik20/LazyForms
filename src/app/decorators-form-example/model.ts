@@ -15,7 +15,9 @@ export class UserModel extends MetadataAccessor {
 
   @metadata(new DefaultControlMetadata({
     label: 'Age',
-    type: 'number'
+    type: 'number',
+    min: 10,
+    max: 5,
   }))
   age: number;
 

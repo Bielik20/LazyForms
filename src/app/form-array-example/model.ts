@@ -9,7 +9,7 @@ export class FormArrayExampleModel extends MetadataAccessor {
   }))
   title: string;
 
-  @metadata(new FormArrayControlMetadata({minLength: 4}))
+  @metadata(new FormArrayControlMetadata({minLength: 4, child: {required: true}}))
   array: string[];
 
   constructor(options: {} = {}) {

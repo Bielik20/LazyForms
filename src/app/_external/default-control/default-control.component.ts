@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {LazyControlComponent} from '../../_frameworks/lazy-forms';
+import {ValidationMessagesService} from '../../_frameworks/validation-messages/validation-messages.service';
 import {BaseMetadata} from '../metadata.models';
 
 export class DefaultControlMetadata extends BaseMetadata {
