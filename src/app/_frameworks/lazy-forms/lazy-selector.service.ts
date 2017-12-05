@@ -1,10 +1,6 @@
-import {AbstractControl} from '@angular/forms';
 import {Subject} from 'rxjs/Subject';
+import {ControlOperations} from './control-operations';
 
-export abstract class LazySelectorService {
+export abstract class LazySelectorService extends ControlOperations {
   onReset: Subject<any>;
-
-  abstract addControl(name: string, control: AbstractControl);
-
-  abstract removeControl(name: string, control: AbstractControl);
 }

@@ -8,8 +8,8 @@ abstract class DisplayMetadata extends LazyMetadata {
 
   constructor(options: {} = {}) {
     super(options);
-    this.label = options['label'] || null;
-    this.icon = options['icon'] || null;
+    this.label = options['label'];
+    this.icon = options['icon'];
     this.placeholder = options['placeholder'] || '';
   }
 }
@@ -26,14 +26,14 @@ abstract class ValidatorsMetadata extends DisplayMetadata {
 
   constructor(options: {} = {}) {
     super(options);
-    this.min = options['min'] || null;
-    this.max = options['max'] || null;
+    this.min = options['min'];
+    this.max = options['max'];
     this.required = options['required'] || false;
     this.requiredTrue = options['requiredTrue'] || false;
     this.email = options['email'] || false;
-    this.minLength = options['minLength'] || null;
-    this.maxLength = options['maxLength'] || null;
-    this.pattern = options['pattern'] || null;
+    this.minLength = options['minLength'];
+    this.maxLength = options['maxLength'];
+    this.pattern = options['pattern'];
   }
 
   get validators(): ValidatorFn[] {

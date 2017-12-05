@@ -6,14 +6,13 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  ViewChild,
-  ViewContainerRef
+  ViewChild
 } from '@angular/core';
 import cloneDeep from 'lodash-es/cloneDeep';
 import 'rxjs/add/operator/takeUntil';
 import {Subject} from 'rxjs/Subject';
-import {LazyHostDirective} from './lazy-host.directive';
 import {LazyControlComponent, LazyControlComponentExtended} from './lazy-control.component';
+import {LazyHostDirective} from './lazy-host.directive';
 import {LazyMetadata} from './lazy-metadata';
 import {LazySelectorService} from './lazy-selector.service';
 
@@ -26,7 +25,7 @@ import {LazySelectorService} from './lazy-selector.service';
 export class LazySelectorComponent implements OnInit, OnDestroy {
   @Input() value: any;
   @Input() metadata: LazyMetadata;
-  @ViewChild(LazyHostDirective) lazyHost: LazyHostDirective;
+  @ViewChild(LazyHostDirective) host: LazyHostDirective;
   private child: LazyControlComponentExtended;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -61,18 +60,13 @@ export class LazySelectorComponent implements OnInit, OnDestroy {
   }
 
   private loadChild() {
-    const viewContainerRef = this.clearComponent();
+    const viewContainerRef = this.host.viewContainerRef;
+    viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent(this.getComponentFactory());
     this.child = LazyControlComponentExtended.supplement(componentRef.instance);
     this.setChildValueAndMetadata();
     this.addChildControlIfExists();
     this.setHooks(componentRef);
-  }
-
-  private clearComponent(): ViewContainerRef {
-    const viewContainerRef = this.lazyHost.viewContainerRef;
-    viewContainerRef.clear();
-    return viewContainerRef;
   }
 
   private getComponentFactory(): ComponentFactory<LazyControlComponent> {
