@@ -8,7 +8,7 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
-import cloneDeep from 'lodash-es/cloneDeep';
+import {cloneDeep} from 'lodash-es';
 import 'rxjs/add/operator/takeUntil';
 import {Subject} from 'rxjs/Subject';
 import {LazyControlComponent, LazyControlComponentExtended} from './lazy-control.component';
