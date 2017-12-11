@@ -7,6 +7,7 @@ import {DefaulControlComponent} from './default-control/default-control.componen
 import {NestedFormControlComponent} from './nested-form-control/nested-form-control.component';
 import {FormArrayControlComponent} from './form-array-control/form-array-control.component';
 import {ValidationMessagesComponent} from './validation-messages/validation-messages.component';
+import { ComplexFormArrayControlComponent } from './complex-form-array-control/complex-form-array-control.component';
 
 @NgModule({
   imports: [
@@ -16,15 +17,17 @@ import {ValidationMessagesComponent} from './validation-messages/validation-mess
     LazyFormModule,
   ],
   declarations: [
+    ValidationMessagesComponent,
     DefaulControlComponent,
     NestedFormControlComponent,
     FormArrayControlComponent,
-    ValidationMessagesComponent,
+    ComplexFormArrayControlComponent,
   ],
   entryComponents: [
     DefaulControlComponent,
     NestedFormControlComponent,
     FormArrayControlComponent,
+    ComplexFormArrayControlComponent,
   ]
 })
 export class ExternalModule {}

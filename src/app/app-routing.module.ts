@@ -18,6 +18,10 @@ const routes: Routes = [
     path: 'form-array-example',
     loadChildren: 'app/form-array-example/form-array-example.module#FormArrayExampleModule'
   },
+  {
+    path: 'complex-form-array-example',
+    loadChildren: 'app/complex-form-array-example/complex-form-array-example.module#ComplexFormArrayExampleModule'
+  },
 ];
 
 @NgModule({

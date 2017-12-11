@@ -42,6 +42,7 @@ export class FormArrayControlComponent implements OnInit, LazyControlComponent {
   removeItem(item: any) {
     const index = this.altValue.indexOf(item);
     if (index > -1) {
+      this.control.markAsDirty();
       this.altValue.splice(index, 1);
     }
   }
