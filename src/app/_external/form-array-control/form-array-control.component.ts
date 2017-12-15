@@ -46,4 +46,15 @@ export class FormArrayControlComponent implements OnInit, LazyControlComponent {
       this.altValue.splice(index, 1);
     }
   }
+
+  onItemComponentCreate(item: any, component: LazyControlComponent) {
+    component.control.valueChanges.subscribe(val => {
+      item.value = val;
+      this.sort();
+    });
+  }
+
+  sort() {
+    this.altValue.sort((a, b) => a.value > b.value ? -1 : 1);
+  }
 }

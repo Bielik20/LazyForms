@@ -3,9 +3,11 @@ import {
   ComponentFactory,
   ComponentFactoryResolver,
   ComponentRef,
+  EventEmitter,
   Input,
   OnDestroy,
   OnInit,
+  Output,
   ViewChild
 } from '@angular/core';
 import {cloneDeep} from 'lodash-es';
@@ -19,12 +21,12 @@ import {LazySelectorService} from './lazy-selector.service';
 @Component({
   selector: 'lazy-selector',
   template: `
-    <ng-template lazyHost></ng-template>
-  `,
+    <ng-template lazyHost></ng-template>`,
 })
 export class LazySelectorComponent implements OnInit, OnDestroy {
   @Input() value: any;
   @Input() metadata: LazyMetadata;
+  @Output() onComponentCreate = new EventEmitter<LazyControlComponent>();
   @ViewChild(LazyHostDirective) host: LazyHostDirective;
   private child: LazyControlComponentExtended;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
@@ -45,7 +47,10 @@ export class LazySelectorComponent implements OnInit, OnDestroy {
   }
 
   private addChildControl() {
-    this.lazySelectorService.addControl(this.child.metadata.key, this.child.control);
+    setTimeout(() => {
+      this.lazySelectorService.addControl(this.child.metadata.key, this.child.control);
+      this.onComponentCreate.next(this.child);
+    });
   }
 
   private addChildControlIfExists() {
@@ -56,7 +61,9 @@ export class LazySelectorComponent implements OnInit, OnDestroy {
   }
 
   private removeChildControl() {
-    this.lazySelectorService.removeControl(this.child.metadata.key, this.child.control);
+    setTimeout(() => {
+      this.lazySelectorService.removeControl(this.child.metadata.key, this.child.control);
+    });
   }
 
   private loadChild() {
