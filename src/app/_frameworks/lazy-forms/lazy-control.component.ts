@@ -8,6 +8,14 @@ export abstract class LazyControlComponent {
   abstract control: AbstractControl;
 }
 
+export interface OnLazySetup {
+  onLazySetup();
+}
+
+export function instanceOfOnLazySetup(object: any): object is OnLazySetup {
+  return 'onLazySetup' in object;
+}
+
 export abstract class LazyControlComponentExtended extends LazyControlComponent {
   controlSetStart: Subject<any>;
   controlSetEnd: Subject<any>;

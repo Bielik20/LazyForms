@@ -1,13 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {LazyControlComponent} from '../../_frameworks/lazy-forms';
-import {ValidationMessagesService} from '../../_frameworks/validation-messages/validation-messages.service';
+import {LazyControlComponent, OnLazySetup} from '../../_frameworks/lazy-forms';
 import {BaseMetadata} from '../metadata.models';
 
 export class DefaultControlMetadata extends BaseMetadata {
   type: string;
   step?: number;
-  component = DefaulControlComponent;
+  component = DefaultControlComponent;
 
   constructor(options: {} = {}) {
     super(options);
@@ -20,12 +19,12 @@ export class DefaultControlMetadata extends BaseMetadata {
   templateUrl: './default-control.component.html',
   styleUrls: ['./default-control.component.scss']
 })
-export class DefaulControlComponent implements OnInit, LazyControlComponent {
+export class DefaultControlComponent implements OnLazySetup, LazyControlComponent {
   @Input() value: string | number | Date;
   @Input() metadata: DefaultControlMetadata;
   control: FormControl;
 
-  ngOnInit() {
+  onLazySetup() {
     this.createForm();
   }
 

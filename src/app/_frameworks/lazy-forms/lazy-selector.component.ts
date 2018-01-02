@@ -13,7 +13,7 @@ import {
 import {cloneDeep} from 'lodash-es';
 import 'rxjs/add/operator/takeUntil';
 import {Subject} from 'rxjs/Subject';
-import {LazyControlComponent, LazyControlComponentExtended} from './lazy-control.component';
+import {instanceOfOnLazySetup, LazyControlComponent, LazyControlComponentExtended} from './lazy-control.component';
 import {LazyHostDirective} from './lazy-host.directive';
 import {LazyMetadata} from './lazy-metadata';
 import {LazySelectorService} from './lazy-selector.service';
@@ -38,7 +38,11 @@ export class LazySelectorComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.createChild();
     this.lazySelectorService.onReset.takeUntil(this.ngUnsubscribe).subscribe(() => {
-      this.createChild();
+      if (instanceOfOnLazySetup(this.child)) {
+        this.resetChild();
+      } else {
+        this.createChild();
+      }
     });
   }
 
@@ -60,18 +64,16 @@ export class LazySelectorComponent implements OnInit, OnDestroy {
     });
   }
 
-  private addChildControlIfExists() {
-    if (!!this.child.control) {
-      console.warn('LazyForms: "control" assignment in constructor. Consider using ngOnInit.', this.child);
-      this.addChildControl();
-    }
-  }
-
   private createChild() {
     this.buildChild();
+    this.setHooks();
+    this.resetChild();
+  }
+
+  private resetChild() {
     this.setChildInputs();
     this.addChildControlIfExists();
-    this.setHooks();
+    this.setupChildIfPossible();
   }
 
   private buildChild() {
@@ -85,11 +87,6 @@ export class LazySelectorComponent implements OnInit, OnDestroy {
     return this.componentFactoryResolver.resolveComponentFactory(this.metadata.component);
   }
 
-  private setChildInputs() {
-    this.child.value = cloneDeep(this.value);
-    this.child.metadata = this.metadata;
-  }
-
   private setHooks() {
     this.childRef.onDestroy(() => this.removeChildControl());
     this.child.controlSetStart.takeUntil(this.ngUnsubscribe)
@@ -100,5 +97,23 @@ export class LazySelectorComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         this.addChildControl();
       });
+  }
+
+  private setChildInputs() {
+    this.child.value = cloneDeep(this.value);
+    this.child.metadata = this.metadata;
+  }
+
+  private addChildControlIfExists() {
+    if (!!this.child.control && !instanceOfOnLazySetup(this.child)) {
+      console.warn('LazyForms: "control" assignment in constructor. Consider using ngOnInit.', this.child);
+      this.addChildControl();
+    }
+  }
+
+  private setupChildIfPossible() {
+    if (instanceOfOnLazySetup(this.child)) {
+      this.child.onLazySetup();
+    }
   }
 }

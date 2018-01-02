@@ -19,10 +19,11 @@ export class NestedFormExampleComponent implements OnInit {
 
   private logChangeDetection() {
     this.form.valueChanges.subscribe(() => {
-      if (this.form.pristine)
-        console.log('Pristine');
-      else
+      if (this.form.pristine) {
+        console.log('Pristine', JSON.stringify(this.form.value));
+      } else {
         console.log('DIRTY');
+      }
     });
   }
 

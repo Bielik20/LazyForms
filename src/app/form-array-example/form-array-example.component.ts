@@ -19,10 +19,11 @@ export class FormArrayExampleComponent implements OnInit {
 
   private logChangeDetection() {
     this.form.valueChanges.subscribe(() => {
-      if (this.form.pristine)
+      if (this.form.pristine) {
         console.log('Pristine');
-      else
+      } else {
         console.log('DIRTY');
+      }
     });
   }
 }
