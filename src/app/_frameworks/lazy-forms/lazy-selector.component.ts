@@ -28,6 +28,7 @@ export class LazySelectorComponent implements OnInit, OnDestroy {
   @Input() metadata: LazyMetadata;
   @Output() onComponentCreate = new EventEmitter<LazyControlComponent>();
   @ViewChild(LazyHostDirective) host: LazyHostDirective;
+  private childRef: ComponentRef<LazyControlComponent>;
   private child: LazyControlComponentExtended;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -35,9 +36,9 @@ export class LazySelectorComponent implements OnInit, OnDestroy {
               private lazySelectorService: LazySelectorService) { }
 
   ngOnInit() {
-    this.loadChild();
+    this.createChild();
     this.lazySelectorService.onReset.takeUntil(this.ngUnsubscribe).subscribe(() => {
-      this.loadChild();
+      this.createChild();
     });
   }
 
@@ -53,6 +54,12 @@ export class LazySelectorComponent implements OnInit, OnDestroy {
     });
   }
 
+  private removeChildControl() {
+    setTimeout(() => {
+      this.lazySelectorService.removeControl(this.child.metadata.key, this.child.control);
+    });
+  }
+
   private addChildControlIfExists() {
     if (!!this.child.control) {
       console.warn('LazyForms: "control" assignment in constructor. Consider using ngOnInit.', this.child);
@@ -60,33 +67,31 @@ export class LazySelectorComponent implements OnInit, OnDestroy {
     }
   }
 
-  private removeChildControl() {
-    setTimeout(() => {
-      this.lazySelectorService.removeControl(this.child.metadata.key, this.child.control);
-    });
+  private createChild() {
+    this.buildChild();
+    this.setChildInputs();
+    this.addChildControlIfExists();
+    this.setHooks();
   }
 
-  private loadChild() {
+  private buildChild() {
     const viewContainerRef = this.host.viewContainerRef;
     viewContainerRef.clear();
-    const componentRef = viewContainerRef.createComponent(this.getComponentFactory());
-    this.child = LazyControlComponentExtended.supplement(componentRef.instance);
-    this.setChildValueAndMetadata();
-    this.addChildControlIfExists();
-    this.setHooks(componentRef);
+    this.childRef = viewContainerRef.createComponent(this.getComponentFactory());
+    this.child = LazyControlComponentExtended.supplement(this.childRef.instance);
   }
 
   private getComponentFactory(): ComponentFactory<LazyControlComponent> {
     return this.componentFactoryResolver.resolveComponentFactory(this.metadata.component);
   }
 
-  private setChildValueAndMetadata() {
+  private setChildInputs() {
     this.child.value = cloneDeep(this.value);
     this.child.metadata = this.metadata;
   }
 
-  private setHooks(componentRef: ComponentRef<LazyControlComponent>) {
-    componentRef.onDestroy(() => this.removeChildControl());
+  private setHooks() {
+    this.childRef.onDestroy(() => this.removeChildControl());
     this.child.controlSetStart.takeUntil(this.ngUnsubscribe)
       .subscribe(() => {
         if (this.child.control) { this.removeChildControl(); }
