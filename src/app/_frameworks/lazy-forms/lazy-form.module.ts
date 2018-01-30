@@ -1,8 +1,8 @@
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 import 'reflect-metadata';
-import {LazyFormDirective} from './lazy-form.directive';
-import {LazyHostDirective} from './lazy-host.directive';
-import {LazySelectorComponent} from './lazy-selector.component';
+import { LazyFormDirective } from './lazy-form.directive';
+import { LazyHostDirective } from './lazy-host.directive';
+import { LazySelectorComponent } from './lazy-selector.component';
 
 @NgModule({
   imports: [],

@@ -1,7 +1,7 @@
-import {Component, Input} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {LazyControlComponent, OnLazySetup} from '../../_frameworks/lazy-forms';
-import {BaseMetadata} from '../metadata.models';
+import { Component, Input } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { LazyControlComponent, OnLazySetup } from '../../_frameworks/lazy-forms';
+import { BaseMetadata } from '../metadata.models';
 
 export class DefaultControlMetadata extends BaseMetadata {
   type: string;

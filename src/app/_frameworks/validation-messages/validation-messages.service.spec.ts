@@ -1,6 +1,6 @@
-import {inject, TestBed} from '@angular/core/testing';
-import {FormControl, Validators} from '@angular/forms';
-import {ValidationMessagesService} from './validation-messages.service';
+import { inject, TestBed } from '@angular/core/testing';
+import { FormControl, Validators } from '@angular/forms';
+import { ValidationMessagesService } from './validation-messages.service';
 
 describe('ValidationMessagesService', () => {
   const control = new FormControl(4, [Validators.required, Validators.min(5), Validators.max(3)]);

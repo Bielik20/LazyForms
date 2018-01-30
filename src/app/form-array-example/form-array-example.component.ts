@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {FormGroup} from '@angular/forms';
-import {FormArrayExampleModel} from './model';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { FormArrayExampleModel } from './model';
 
 @Component({
   selector: 'app-form-array-example',
@@ -9,7 +9,7 @@ import {FormArrayExampleModel} from './model';
 })
 export class FormArrayExampleComponent implements OnInit {
   form = new FormGroup({});
-  model = new FormArrayExampleModel({array: ['a', 'b', 'a']});
+  model = new FormArrayExampleModel({ array: ['a', 'b', 'a'] });
 
   constructor() { }
 

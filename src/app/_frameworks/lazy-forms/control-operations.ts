@@ -1,4 +1,4 @@
-import {AbstractControl, FormArray, FormControl, FormGroup} from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 
 export abstract class ControlOperations {
   static create(form: AbstractControl): ControlOperations {

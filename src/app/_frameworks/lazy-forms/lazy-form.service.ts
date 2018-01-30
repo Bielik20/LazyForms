@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {AbstractControl} from '@angular/forms';
-import {Subject} from 'rxjs/Subject';
-import {ControlOperations} from './control-operations';
-import {LazySelectorService} from './lazy-selector.service';
+import { Injectable } from '@angular/core';
+import { AbstractControl } from '@angular/forms';
+import { Subject } from 'rxjs/Subject';
+import { ControlOperations } from './control-operations';
+import { LazySelectorService } from './lazy-selector.service';
 
 @Injectable()
 export class LazyFormService implements LazySelectorService {

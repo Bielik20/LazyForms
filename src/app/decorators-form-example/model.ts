@@ -1,5 +1,5 @@
-import {DefaultControlMetadata} from '../_external/default-control/default-control.component';
-import {metadata, MetadataAccessor} from '../_external/metadata.models';
+import { DefaultControlMetadata } from '../_external/default-control/default-control.component';
+import { metadata, MetadataAccessor } from '../_external/metadata.models';
 
 export class UserModel extends MetadataAccessor {
   @metadata(new DefaultControlMetadata({

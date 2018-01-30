@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormArray} from '@angular/forms';
-import {LazyControlComponent} from '../../_frameworks/lazy-forms';
-import {DefaultControlMetadata} from '../default-control/default-control.component';
-import {BaseMetadata} from '../metadata.models';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormArray } from '@angular/forms';
+import { LazyControlComponent } from '../../_frameworks/lazy-forms';
+import { DefaultControlMetadata } from '../default-control/default-control.component';
+import { BaseMetadata } from '../metadata.models';
 
 export class FormArrayControlMetadata extends BaseMetadata {
   component = FormArrayControlComponent;
@@ -26,17 +26,13 @@ export class FormArrayControlComponent implements OnInit, LazyControlComponent {
 
 
   ngOnInit() {
-    this.value.forEach(item => this.altValue.push({value: item}));
+    this.value.forEach(item => this.altValue.push({ value: item }));
     this.createForm();
-  }
-
-  private createForm() {
-    this.control = new FormArray([], {validators: this.metadata.validators});
   }
 
   addItem() {
     this.control.markAsDirty();
-    this.altValue.push({value: ''});
+    this.altValue.push({ value: '' });
   }
 
   removeItem(item: any) {
@@ -56,5 +52,9 @@ export class FormArrayControlComponent implements OnInit, LazyControlComponent {
 
   sort() {
     this.altValue.sort((a, b) => a.value > b.value ? -1 : 1);
+  }
+
+  private createForm() {
+    this.control = new FormArray([], { validators: this.metadata.validators });
   }
 }

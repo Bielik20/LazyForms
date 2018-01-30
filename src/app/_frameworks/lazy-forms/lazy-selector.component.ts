@@ -1,22 +1,13 @@
 import {
-  Component,
-  ComponentFactory,
-  ComponentFactoryResolver,
-  ComponentRef,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-  ViewChild
+  Component, ComponentFactory, ComponentFactoryResolver, ComponentRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild
 } from '@angular/core';
-import {cloneDeep} from 'lodash-es';
+import { cloneDeep } from 'lodash-es';
 import 'rxjs/add/operator/takeUntil';
-import {Subject} from 'rxjs/Subject';
-import {instanceOfOnLazySetup, LazyControlComponent, LazyControlComponentExtended} from './lazy-control.component';
-import {LazyHostDirective} from './lazy-host.directive';
-import {LazyMetadata} from './lazy-metadata';
-import {LazySelectorService} from './lazy-selector.service';
+import { Subject } from 'rxjs/Subject';
+import { instanceOfOnLazySetup, LazyControlComponent, LazyControlComponentExtended } from './lazy-control.component';
+import { LazyHostDirective } from './lazy-host.directive';
+import { LazyMetadata } from './lazy-metadata';
+import { LazySelectorService } from './lazy-selector.service';
 
 @Component({
   selector: 'lazy-selector',

@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {NestedFormExampleModel} from './model';
-import {FormGroup} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { NestedFormExampleModel } from './model';
 
 @Component({
   selector: 'app-nested-form-example',
@@ -17,16 +17,6 @@ export class NestedFormExampleComponent implements OnInit {
     this.logChangeDetection();
   }
 
-  private logChangeDetection() {
-    this.form.valueChanges.subscribe(() => {
-      if (this.form.pristine) {
-        console.log('Pristine', JSON.stringify(this.form.value));
-      } else {
-        console.log('DIRTY');
-      }
-    });
-  }
-
   testFormReset() {
     this.model.title = this.form.value.userModel.firstName;
     setTimeout(() => {
@@ -35,5 +25,15 @@ export class NestedFormExampleComponent implements OnInit {
     });
     // this.form = new FormGroup({});
     // this.logChangeDetection();
+  }
+
+  private logChangeDetection() {
+    this.form.valueChanges.subscribe(() => {
+      if (this.form.pristine) {
+        console.log('Pristine', JSON.stringify(this.form.value));
+      } else {
+        console.log('DIRTY');
+      }
+    });
   }
 }

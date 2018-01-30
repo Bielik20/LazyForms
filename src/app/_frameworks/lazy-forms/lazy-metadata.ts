@@ -1,5 +1,5 @@
-import {Type} from '@angular/core';
-import {LazyControlComponent} from './lazy-control.component';
+import { Type } from '@angular/core';
+import { LazyControlComponent } from './lazy-control.component';
 
 export abstract class LazyMetadata {
   key: string;

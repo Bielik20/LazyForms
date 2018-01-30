@@ -1,7 +1,7 @@
-import {ComplexFormArrayControlMetadata} from '../_external/complex-form-array-control/complex-form-array-control.component';
-import {DefaultControlMetadata} from '../_external/default-control/default-control.component';
-import {metadata, MetadataAccessor} from '../_external/metadata.models';
-import {UserModel} from '../decorators-form-example/model';
+import { ComplexFormArrayControlMetadata } from '../_external/complex-form-array-control/complex-form-array-control.component';
+import { DefaultControlMetadata } from '../_external/default-control/default-control.component';
+import { metadata, MetadataAccessor } from '../_external/metadata.models';
+import { UserModel } from '../decorators-form-example/model';
 
 export class ComplexFormArrayExampleModel extends MetadataAccessor {
   @metadata(new DefaultControlMetadata({
@@ -10,7 +10,7 @@ export class ComplexFormArrayExampleModel extends MetadataAccessor {
   }))
   title: string;
 
-  @metadata(new ComplexFormArrayControlMetadata({minLength: 4}))
+  @metadata(new ComplexFormArrayControlMetadata({ minLength: 4 }))
   array: UserModel[];
 
   constructor(options: {} = {}) {

@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormGroup} from '@angular/forms';
-import {LazyControlComponent} from '../../_frameworks/lazy-forms';
-import {UserModel} from '../../decorators-form-example/model';
-import {BaseMetadata} from '../metadata.models';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormArray, FormGroup } from '@angular/forms';
+import { LazyControlComponent } from '../../_frameworks/lazy-forms';
+import { UserModel } from '../../decorators-form-example/model';
+import { BaseMetadata } from '../metadata.models';
 
 export class ComplexFormArrayControlMetadata extends BaseMetadata {
   component = ComplexFormArrayControlComponent;

@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {FormGroup} from '@angular/forms';
-import {UserModel} from './model';
+import { Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { UserModel } from './model';
 
 @Component({
   selector: 'app-decorators-form-example',
@@ -9,7 +9,7 @@ import {UserModel} from './model';
 })
 export class DecoratorsFormExampleComponent {
   form = new FormGroup({});
-  model = new UserModel({lastName: 'This value is predefined'});
+  model = new UserModel({ lastName: 'This value is predefined' });
 
   constructor() { }
 

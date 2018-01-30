@@ -1,8 +1,8 @@
-import {Component, Input} from '@angular/core';
-import {FormGroup} from '@angular/forms';
-import {LazyControlComponent, OnLazySetup} from '../../_frameworks/lazy-forms';
-import {UserModel} from '../../decorators-form-example/model';
-import {BaseMetadata} from '../metadata.models';
+import { Component, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { LazyControlComponent, OnLazySetup } from '../../_frameworks/lazy-forms';
+import { UserModel } from '../../decorators-form-example/model';
+import { BaseMetadata } from '../metadata.models';
 
 export class NestedFormControlMetadata extends BaseMetadata {
   component = NestedFormControlComponent;

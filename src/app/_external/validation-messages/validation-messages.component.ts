@@ -1,7 +1,7 @@
-import {Component, Input, OnChanges, OnDestroy, SimpleChanges} from '@angular/core';
-import {AbstractControl} from '@angular/forms';
-import {Subject} from 'rxjs/Subject';
-import {ValidationMessagesService} from '../../_frameworks/validation-messages/validation-messages.service';
+import { Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { AbstractControl } from '@angular/forms';
+import { Subject } from 'rxjs/Subject';
+import { ValidationMessagesService } from '../../_frameworks/validation-messages/validation-messages.service';
 
 @Component({
   selector: 'app-validation-messages',

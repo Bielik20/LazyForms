@@ -1,14 +1,14 @@
 <div fxLayout="row" class="grid--hor--2">
   <div fxFlex="2 0 400px" class="grid__el">
-      <div *ngFor="let controlItem of control.controls; let i = index" lazyForm [formGroup]="controlItem">
-        <button (click)="removeItem(i)">X</button>
-        <lazy-selector [value]="value[i].firstName" [metadata]="value[i].metadata('firstName')"></lazy-selector>
-        <lazy-selector [value]="value[i].lastName" [metadata]="value[i].metadata('lastName')"></lazy-selector>
-        <lazy-selector [value]="value[i].age" [metadata]="value[i].metadata('age')"></lazy-selector>
-      </div>
-      <app-validation-messages [control]="control"></app-validation-messages>
-      <button class="btn btn-primary" style="width: 100%" (click)="addItem()">Add</button>
+    <div *ngFor="let controlItem of control.controls; let i = index" lazyForm [formGroup]="controlItem">
+      <button (click)="removeItem(i)">X</button>
+      <lazy-selector [value]="value[i].firstName" [metadata]="value[i].metadata('firstName')"></lazy-selector>
+      <lazy-selector [value]="value[i].lastName" [metadata]="value[i].metadata('lastName')"></lazy-selector>
+      <lazy-selector [value]="value[i].age" [metadata]="value[i].metadata('age')"></lazy-selector>
     </div>
+    <app-validation-messages [control]="control"></app-validation-messages>
+    <button class="btn btn-primary" style="width: 100%" (click)="addItem()">Add</button>
+  </div>
   <div fxFlex="0.5 0 300px" class="grid__el">
 <pre class="height-100pct" [ngClass]="{'invalid': control.invalid, 'valid': control.valid}">
 <span class="head">{{metadata.key}}</span>

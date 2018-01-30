@@ -1,5 +1,5 @@
-import {ValidatorFn, Validators} from '@angular/forms';
-import {getLazyMetadata, LazyMetadata, setLazyMetadata} from '../_frameworks/lazy-forms';
+import { ValidatorFn, Validators } from '@angular/forms';
+import { getLazyMetadata, LazyMetadata, setLazyMetadata } from '../_frameworks/lazy-forms';
 
 abstract class DisplayMetadata extends LazyMetadata {
   label?: string;

@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {FormGroup} from '@angular/forms';
-import {UserModel} from '../decorators-form-example/model';
-import {ComplexFormArrayExampleModel} from './model';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { UserModel } from '../decorators-form-example/model';
+import { ComplexFormArrayExampleModel } from './model';
 
 @Component({
   selector: 'app-complex-form-array-example',
@@ -10,7 +10,7 @@ import {ComplexFormArrayExampleModel} from './model';
 })
 export class ComplexFormArrayExampleComponent implements OnInit {
   form = new FormGroup({});
-  model = new ComplexFormArrayExampleModel({array: [new UserModel({firstName: 'Test Name'})]});
+  model = new ComplexFormArrayExampleModel({ array: [new UserModel({ firstName: 'Test Name' })] });
 
   constructor() { }
 

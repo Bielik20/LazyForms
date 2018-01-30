@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {AbstractControl} from '@angular/forms';
-import {ValidationMessagesRepository} from './validation-messages-repository';
+import { Injectable } from '@angular/core';
+import { AbstractControl } from '@angular/forms';
+import { ValidationMessagesRepository } from './validation-messages-repository';
 
 interface KeyMessagePair {
   key: string;
@@ -16,7 +16,7 @@ export class ValidationMessagesService {
   }
 
   static provide(repository?: ValidationMessagesRepository) {
-    return { provide: ValidationMessagesService, useFactory() { return new ValidationMessagesService(repository); }};
+    return { provide: ValidationMessagesService, useFactory() { return new ValidationMessagesService(repository); } };
   }
 
   getFirst(control: AbstractControl): string {
@@ -50,7 +50,7 @@ export class ValidationMessagesService {
         const validationObject = control.errors[errorKey];
         if (messageMethod) {
           const validationMessage = messageMethod(validationObject);
-          yield {key: errorKey, message: validationMessage};
+          yield { key: errorKey, message: validationMessage };
         } else {
           console.warn(`No message method for error: ${errorKey}`, validationObject);
         }

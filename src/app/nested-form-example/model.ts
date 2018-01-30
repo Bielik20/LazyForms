@@ -1,7 +1,7 @@
-import {DefaultControlMetadata} from '../_external/default-control/default-control.component';
-import {metadata, MetadataAccessor} from '../_external/metadata.models';
-import {NestedFormControlMetadata} from '../_external/nested-form-control/nested-form-control.component';
-import {UserModel} from '../decorators-form-example/model';
+import { DefaultControlMetadata } from '../_external/default-control/default-control.component';
+import { metadata, MetadataAccessor } from '../_external/metadata.models';
+import { NestedFormControlMetadata } from '../_external/nested-form-control/nested-form-control.component';
+import { UserModel } from '../decorators-form-example/model';
 
 export class NestedFormExampleModel extends MetadataAccessor {
   @metadata(new DefaultControlMetadata({
