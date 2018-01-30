@@ -1,6 +1,7 @@
 # LazyForms
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
+Demo can be found here: https://bielik20.github.io/LazyForms/
 
 Dependencies:
 - import 'reflect-metadata';
